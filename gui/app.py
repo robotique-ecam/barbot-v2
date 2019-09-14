@@ -5,7 +5,6 @@
 
 
 import sys
-import time
 from PyQt5 import QtCore
 from ui_main import Ui_MainWindow
 from ui_password import Ui_Dialog
@@ -32,15 +31,26 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.drink1.clicked.connect(lambda: self.tabWidget.setCurrentIndex(1))
         self.drink1.clicked.connect(self.loading)
 
+    def timerEvent(self, e):
+        """Increases step by everytime it is called by timer."""
+        if self.__step >= 100:
+            self.timer.stop()
+            self.tabWidget.setCurrentIndex(2)
+            return
+        self.__step = self.__step + 1
+        self.progress.setValue(self.__step)
+
+    def doAction(self):
+        if self.timer.isActive():
+            self.timer.stop()
+        else:
+            self.timer.start(100, self)
+
     def loading(self):
         """Progress bar function."""
-        self.completed = 0
-        self.password_dialog.show()
-        while self.completed < 100:
-            self.completed += 0.00001
-            self.progress.setValue(self.completed)
-        time.sleep(2)
-        self.tabWidget.setCurrentIndex(2)
+        self.__step = 0
+        self.timer = QtCore.QBasicTimer()
+        self.timer.start(100, self)
 
 
 class PasswordDialog(QDialog, Ui_Dialog):
