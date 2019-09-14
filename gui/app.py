@@ -5,6 +5,7 @@
 
 
 import sys
+import time
 from PyQt5 import QtCore
 from ui import Ui_MainWindow
 from PyQt5.QtWidgets import QMainWindow, QApplication
@@ -25,6 +26,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         """Init."""
         QMainWindow.__init__(self)
         Ui_MainWindow.__init__(self)
+        self.setupUi(self)
+        self.drink1.clicked.connect(lambda: self.tabWidget.setCurrentIndex(1))
+        self.drink1.clicked.connect(self.loading)
+
+    def loading(self):
+        """Progress bar function."""
+        self.completed = 0
+        while self.completed < 100:
+            self.completed += 0.00001
+            self.progress.setValue(self.completed)
+        time.sleep(2)
+        self.tabWidget.setCurrentIndex(2)
 
 
 if __name__ == "__main__":

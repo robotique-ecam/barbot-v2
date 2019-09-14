@@ -4,7 +4,7 @@ gui:
 	pyuic5 -o ui.py ui/main.ui
 
 ressources:
-	# pyrcc5 icons/icons.qrc -o icons_rc.py
+	pyrcc5 images/resources.qrc -o resources_rc.py
 
 linux: gui ressources
 

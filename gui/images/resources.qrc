@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="Logo">
+    <file>logo_ecam.png</file>
+    <file>logo_funtech_makers.jpeg</file>
+  </qresource>
+</RCC>
