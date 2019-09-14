@@ -27,6 +27,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         QMainWindow.__init__(self)
         Ui_MainWindow.__init__(self)
         self.setupUi(self)
+        self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
         self.password_dialog = PasswordDialog(self)
         self.drink1.clicked.connect(lambda: self.tabWidget.setCurrentIndex(1))
         self.drink1.clicked.connect(self.loading)
