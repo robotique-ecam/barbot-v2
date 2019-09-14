@@ -1,4 +1,4 @@
-ui.py
+ui*.py
 resources_rc.py
 
 # Created by https://www.gitignore.io/api/python
