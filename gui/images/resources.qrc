@@ -1,5 +1,8 @@
 <RCC>
   <qresource prefix="Logo">
+    <file>check.png</file>
+    <file>erase.png</file>
+    <file>gear_icon.png</file>
     <file>logo_ecam.png</file>
     <file>logo_funtech_makers.jpeg</file>
   </qresource>
