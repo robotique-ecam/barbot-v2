@@ -1,5 +1,7 @@
 <RCC>
   <qresource prefix="Logo">
+    <file>beer.png</file>
+    <file>bottle.png</file>
     <file>check.png</file>
     <file>erase.png</file>
     <file>gear_icon.png</file>
