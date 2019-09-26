@@ -3,6 +3,7 @@ all: linux
 gui:
 	pyuic5 -o ui_main.py ui/main.ui
 	pyuic5 -o ui_password.py ui/password.ui
+	pyuic5 -o ui_drink.py ui/drink.ui
 
 ressources:
 	pyrcc5 images/resources.qrc -o resources_rc.py

@@ -125,7 +125,7 @@
        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Verdana'; font-size:6.5pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Verdana'; font-size:7.8pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:24pt; font-weight:600;&quot;&gt;Sélectionnez votre boisson&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="textInteractionFlags">
@@ -460,7 +460,7 @@ QPushButton:pressed {
        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Verdana'; font-size:6.5pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Verdana'; font-size:7.8pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:20pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:20pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
@@ -498,32 +498,34 @@ p, li { white-space: pre-wrap; }
      <attribute name="title">
       <string>Finish</string>
      </attribute>
-     <widget class="QTextEdit" name="finishDrink">
+     <widget class="QLineEdit" name="finishDrink">
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>60</y>
-        <width>941</width>
-        <height>71</height>
+        <y>-20</y>
+        <width>1011</width>
+        <height>161</height>
        </rect>
       </property>
       <property name="font">
        <font>
         <family>Verdana</family>
+        <pointsize>30</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
        </font>
       </property>
-      <property name="frameShape">
-       <enum>QFrame::NoFrame</enum>
+      <property name="text">
+       <string>Votre boisson est prête!</string>
       </property>
-      <property name="html">
-       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Verdana'; font-size:6.5pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:36pt; font-weight:600;&quot;&gt;Votre boisson est prête!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <property name="frame">
+       <bool>false</bool>
       </property>
-      <property name="textInteractionFlags">
-       <set>Qt::NoTextInteraction</set>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="readOnly">
+       <bool>true</bool>
       </property>
      </widget>
     </widget>
@@ -549,6 +551,37 @@ p, li { white-space: pre-wrap; }
        </rect>
       </property>
       <layout class="QHBoxLayout" name="drinkPicture">
+       <item>
+        <widget class="QPushButton" name="picture1">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>165</width>
+           <height>165</height>
+          </size>
+         </property>
+         <property name="checkable">
+          <bool>false</bool>
+         </property>
+         <property name="default">
+          <bool>false</bool>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
        <item>
         <widget class="QPushButton" name="picture2">
          <property name="sizePolicy">
@@ -697,7 +730,7 @@ p, li { white-space: pre-wrap; }
         <x>0</x>
         <y>260</y>
         <width>1011</width>
-        <height>51</height>
+        <height>55</height>
        </rect>
       </property>
       <layout class="QHBoxLayout" name="drinkName">
@@ -718,7 +751,7 @@ p, li { white-space: pre-wrap; }
           </font>
          </property>
          <property name="text">
-          <string>Bière</string>
+          <string/>
          </property>
          <property name="frame">
           <bool>false</bool>
@@ -907,7 +940,7 @@ p, li { white-space: pre-wrap; }
          <property name="font">
           <font>
            <family>Verdana</family>
-           <pointsize>20</pointsize>
+           <pointsize>10</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
@@ -931,7 +964,7 @@ p, li { white-space: pre-wrap; }
          <property name="font">
           <font>
            <family>Verdana</family>
-           <pointsize>20</pointsize>
+           <pointsize>10</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
@@ -955,7 +988,7 @@ p, li { white-space: pre-wrap; }
          <property name="font">
           <font>
            <family>Verdana</family>
-           <pointsize>20</pointsize>
+           <pointsize>10</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
@@ -979,7 +1012,7 @@ p, li { white-space: pre-wrap; }
          <property name="font">
           <font>
            <family>Verdana</family>
-           <pointsize>20</pointsize>
+           <pointsize>10</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
@@ -1003,7 +1036,7 @@ p, li { white-space: pre-wrap; }
          <property name="font">
           <font>
            <family>Verdana</family>
-           <pointsize>20</pointsize>
+           <pointsize>10</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
@@ -1027,400 +1060,13 @@ p, li { white-space: pre-wrap; }
          <property name="font">
           <font>
            <family>Verdana</family>
-           <pointsize>20</pointsize>
+           <pointsize>10</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
          <property name="text">
           <string>Désactivée</string>
-         </property>
-         <property name="flat">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="horizontalLayoutWidget_4">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>310</y>
-        <width>1011</width>
-        <height>88</height>
-       </rect>
-      </property>
-      <layout class="QHBoxLayout" name="pump_purge">
-       <property name="sizeConstraint">
-        <enum>QLayout::SetDefaultConstraint</enum>
-       </property>
-       <item>
-        <widget class="QPushButton" name="pump1">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="font">
-          <font>
-           <family>Verdana</family>
-          </font>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="icon">
-          <iconset resource="../images/resources.qrc">
-           <normaloff>:/Logo/beer.png</normaloff>:/Logo/beer.png</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>70</width>
-           <height>70</height>
-          </size>
-         </property>
-         <property name="flat">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="purge1">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="font">
-          <font>
-           <family>Verdana</family>
-          </font>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="icon">
-          <iconset resource="../images/resources.qrc">
-           <normaloff>:/Logo/bottle.png</normaloff>:/Logo/bottle.png</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>70</width>
-           <height>70</height>
-          </size>
-         </property>
-         <property name="flat">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="pump2">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="font">
-          <font>
-           <family>Verdana</family>
-          </font>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="icon">
-          <iconset resource="../images/resources.qrc">
-           <normaloff>:/Logo/beer.png</normaloff>:/Logo/beer.png</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>70</width>
-           <height>70</height>
-          </size>
-         </property>
-         <property name="flat">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="purge2">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="font">
-          <font>
-           <family>Verdana</family>
-          </font>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="icon">
-          <iconset resource="../images/resources.qrc">
-           <normaloff>:/Logo/bottle.png</normaloff>:/Logo/bottle.png</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>70</width>
-           <height>70</height>
-          </size>
-         </property>
-         <property name="flat">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="pump3">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="font">
-          <font>
-           <family>Verdana</family>
-          </font>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="icon">
-          <iconset resource="../images/resources.qrc">
-           <normaloff>:/Logo/beer.png</normaloff>:/Logo/beer.png</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>70</width>
-           <height>70</height>
-          </size>
-         </property>
-         <property name="flat">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="purge3">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="font">
-          <font>
-           <family>Verdana</family>
-          </font>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="icon">
-          <iconset resource="../images/resources.qrc">
-           <normaloff>:/Logo/bottle.png</normaloff>:/Logo/bottle.png</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>70</width>
-           <height>70</height>
-          </size>
-         </property>
-         <property name="flat">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="pump4">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="font">
-          <font>
-           <family>Verdana</family>
-          </font>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="icon">
-          <iconset resource="../images/resources.qrc">
-           <normaloff>:/Logo/beer.png</normaloff>:/Logo/beer.png</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>70</width>
-           <height>70</height>
-          </size>
-         </property>
-         <property name="flat">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="purge4">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="font">
-          <font>
-           <family>Verdana</family>
-          </font>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="icon">
-          <iconset resource="../images/resources.qrc">
-           <normaloff>:/Logo/bottle.png</normaloff>:/Logo/bottle.png</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>70</width>
-           <height>70</height>
-          </size>
-         </property>
-         <property name="flat">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="pump5">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="font">
-          <font>
-           <family>Verdana</family>
-          </font>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="icon">
-          <iconset resource="../images/resources.qrc">
-           <normaloff>:/Logo/beer.png</normaloff>:/Logo/beer.png</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>70</width>
-           <height>70</height>
-          </size>
-         </property>
-         <property name="flat">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="purge5">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="font">
-          <font>
-           <family>Verdana</family>
-          </font>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="icon">
-          <iconset resource="../images/resources.qrc">
-           <normaloff>:/Logo/bottle.png</normaloff>:/Logo/bottle.png</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>70</width>
-           <height>70</height>
-          </size>
-         </property>
-         <property name="flat">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="pump6">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="font">
-          <font>
-           <family>Verdana</family>
-          </font>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="icon">
-          <iconset resource="../images/resources.qrc">
-           <normaloff>:/Logo/beer.png</normaloff>:/Logo/beer.png</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>70</width>
-           <height>70</height>
-          </size>
-         </property>
-         <property name="flat">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="purge6">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="font">
-          <font>
-           <family>Verdana</family>
-          </font>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="icon">
-          <iconset resource="../images/resources.qrc">
-           <normaloff>:/Logo/bottle.png</normaloff>:/Logo/bottle.png</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>70</width>
-           <height>70</height>
-          </size>
          </property>
          <property name="flat">
           <bool>true</bool>
