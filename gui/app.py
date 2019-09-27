@@ -4,6 +4,7 @@ from PyQt5 import QtCore
 from ui_main import Ui_MainWindow
 from password import PasswordDialog
 from drink import DrinkDialog
+import cocktails
 from PyQt5.QtWidgets import QMainWindow, QApplication
 import sys
 
@@ -27,6 +28,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.button_clicked = self.picture1
         self.name_clicked = self.name1
+        self.available_drinks = []
+        self.available_cocktails = []
+        self.cocktails = cocktails.cocktails
         # self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
         self.drink1.clicked.connect(self.loading)
         self.settings.clicked.connect(self.open_password)
@@ -36,7 +40,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.picture4.clicked.connect(lambda: self.open_drink(self.picture4))
         self.picture5.clicked.connect(lambda: self.open_drink(self.picture5))
         self.picture6.clicked.connect(lambda: self.open_drink(self.picture6))
-
 
     def timerEvent(self, e):
         """Increases step everytime it is called by timer."""
