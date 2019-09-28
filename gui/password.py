@@ -11,7 +11,6 @@ class PasswordDialog(QDialog, Ui_Dialog):
         Ui_Dialog.__init__(self)
         self.setupUi(self)
         # self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
-        self.good_password = "8192"
         self.b0.clicked.connect(lambda: self.writing_password(self.b0))
         self.b1.clicked.connect(lambda: self.writing_password(self.b1))
         self.b2.clicked.connect(lambda: self.writing_password(self.b2))
@@ -30,10 +29,19 @@ class PasswordDialog(QDialog, Ui_Dialog):
             self.lineEdit.setText(self.lineEdit.text() + button.text())
 
     def check_password(self):
-        if self.lineEdit.text() == self.good_password:
+        if self.lineEdit.text() == "8192":
             self.lineEdit.setText("")
             self.hide()
             self.parent().tabWidget.setCurrentIndex(3)
+        elif self.lineEdit.text() == "4096":
+            if self.parent().night_mode:
+                self.parent().night_mode = False
+                self.parent().create_ingredients()
+            else:
+                self.parent().night_mode = True
+                self.parent().create_ingredients()
+            self.lineEdit.setText("")
+            self.hide()
         else:
             self.lineEdit.setText("Wrong!")
             QtTest.QTest.qWait(1000)

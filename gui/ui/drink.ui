@@ -49,39 +49,6 @@
     <string/>
    </property>
   </widget>
-  <widget class="QPushButton" name="picture">
-   <property name="geometry">
-    <rect>
-     <x>68</x>
-     <y>80</y>
-     <width>165</width>
-     <height>165</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Verdana</family>
-    </font>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-   <property name="iconSize">
-    <size>
-     <width>165</width>
-     <height>165</height>
-    </size>
-   </property>
-   <property name="checkable">
-    <bool>false</bool>
-   </property>
-   <property name="default">
-    <bool>true</bool>
-   </property>
-   <property name="flat">
-    <bool>true</bool>
-   </property>
-  </widget>
   <widget class="QLineEdit" name="name">
    <property name="geometry">
     <rect>
@@ -169,6 +136,19 @@
    </property>
    <property name="text">
     <string>OK</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="picture">
+   <property name="geometry">
+    <rect>
+     <x>68</x>
+     <y>80</y>
+     <width>165</width>
+     <height>165</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
    </property>
   </widget>
  </widget>

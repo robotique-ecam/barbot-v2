@@ -45,7 +45,7 @@
      <family>Verdana</family>
     </font>
    </property>
-   <widget class="QTabWidget" name="tabWidget">
+   <widget class="QStackedWidget" name="tabWidget">
     <property name="enabled">
      <bool>true</bool>
     </property>
@@ -72,26 +72,9 @@
      <enum>Qt::ActionsContextMenu</enum>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>2</number>
     </property>
-    <property name="usesScrollButtons">
-     <bool>true</bool>
-    </property>
-    <property name="tabsClosable">
-     <bool>false</bool>
-    </property>
-    <property name="tabBarAutoHide">
-     <bool>true</bool>
-    </property>
-    <widget class="QWidget" name="tabMenu">
-     <property name="font">
-      <font>
-       <family>Verdana</family>
-      </font>
-     </property>
-     <attribute name="title">
-      <string>Menu</string>
-     </attribute>
+    <widget class="QWidget" name="tabMenu" native="true">
      <widget class="QTextEdit" name="chooseDrink">
       <property name="enabled">
        <bool>true</bool>
@@ -121,11 +104,17 @@
       <property name="frameShadow">
        <enum>QFrame::Plain</enum>
       </property>
+      <property name="verticalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
+      </property>
+      <property name="horizontalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
+      </property>
       <property name="html">
        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Verdana'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Verdana'; font-size:7.8pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:24pt; font-weight:600;&quot;&gt;Sélectionnez votre boisson&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="textInteractionFlags">
@@ -423,15 +412,7 @@ p, li { white-space: pre-wrap; }
       </layout>
      </widget>
     </widget>
-    <widget class="QWidget" name="tabLoading">
-     <property name="font">
-      <font>
-       <family>Verdana</family>
-      </font>
-     </property>
-     <attribute name="title">
-      <string>Loading</string>
-     </attribute>
+    <widget class="QWidget" name="tabLoading" native="true">
      <widget class="QProgressBar" name="progress">
       <property name="geometry">
        <rect>
@@ -485,15 +466,7 @@ p, li { white-space: pre-wrap; }
       </property>
      </widget>
     </widget>
-    <widget class="QWidget" name="tabFinish">
-     <property name="font">
-      <font>
-       <family>Verdana</family>
-      </font>
-     </property>
-     <attribute name="title">
-      <string>Finish</string>
-     </attribute>
+    <widget class="QWidget" name="tabFinish" native="true">
      <widget class="QLineEdit" name="finishDrink">
       <property name="geometry">
        <rect>
@@ -524,24 +497,34 @@ p, li { white-space: pre-wrap; }
        <bool>true</bool>
       </property>
      </widget>
+     <widget class="QPushButton" name="new_drink">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>490</y>
+        <width>361</width>
+        <height>101</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Verdana</family>
+        <pointsize>20</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Nouvelle boisson!</string>
+      </property>
+     </widget>
     </widget>
-    <widget class="QWidget" name="tabAdmin">
-     <property name="enabled">
-      <bool>true</bool>
-     </property>
-     <property name="font">
-      <font>
-       <family>Verdana</family>
-      </font>
-     </property>
-     <attribute name="title">
-      <string>Admin</string>
-     </attribute>
+    <widget class="QWidget" name="tabAdmin" native="true">
      <widget class="QWidget" name="horizontalLayoutWidget">
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>90</y>
+        <y>120</y>
         <width>1011</width>
         <height>173</height>
        </rect>
@@ -724,9 +707,9 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>260</y>
+        <y>290</y>
         <width>1011</width>
-        <height>55</height>
+        <height>59</height>
        </rect>
       </property>
       <layout class="QHBoxLayout" name="drinkName">
@@ -916,19 +899,19 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>20</y>
+        <y>50</y>
         <width>1011</width>
         <height>71</height>
        </rect>
       </property>
-      <layout class="QHBoxLayout" name="drinkEnabled">
+      <layout class="QHBoxLayout" name="drinkNumber">
        <property name="sizeConstraint">
         <enum>QLayout::SetDefaultConstraint</enum>
        </property>
        <item>
-        <widget class="QPushButton" name="enabled1">
+        <widget class="QLineEdit" name="line1">
          <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+          <sizepolicy hsizetype="Expanding" vsizetype="Ignored">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
@@ -936,23 +919,32 @@ p, li { white-space: pre-wrap; }
          <property name="font">
           <font>
            <family>Verdana</family>
-           <pointsize>10</pointsize>
+           <pointsize>20</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
          <property name="text">
-          <string>Désactivée</string>
+          <string>1</string>
          </property>
-         <property name="flat">
+         <property name="frame">
+          <bool>false</bool>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="dragEnabled">
+          <bool>false</bool>
+         </property>
+         <property name="readOnly">
           <bool>true</bool>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="enabled2">
+        <widget class="QLineEdit" name="line2">
          <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+          <sizepolicy hsizetype="Expanding" vsizetype="Ignored">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
@@ -960,23 +952,32 @@ p, li { white-space: pre-wrap; }
          <property name="font">
           <font>
            <family>Verdana</family>
-           <pointsize>10</pointsize>
+           <pointsize>20</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
          <property name="text">
-          <string>Désactivée</string>
+          <string>2</string>
          </property>
-         <property name="flat">
+         <property name="frame">
+          <bool>false</bool>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="dragEnabled">
+          <bool>false</bool>
+         </property>
+         <property name="readOnly">
           <bool>true</bool>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="enabled3">
+        <widget class="QLineEdit" name="line3">
          <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+          <sizepolicy hsizetype="Expanding" vsizetype="Ignored">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
@@ -984,23 +985,32 @@ p, li { white-space: pre-wrap; }
          <property name="font">
           <font>
            <family>Verdana</family>
-           <pointsize>10</pointsize>
+           <pointsize>20</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
          <property name="text">
-          <string>Désactivée</string>
+          <string>3</string>
          </property>
-         <property name="flat">
+         <property name="frame">
+          <bool>false</bool>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="dragEnabled">
+          <bool>false</bool>
+         </property>
+         <property name="readOnly">
           <bool>true</bool>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="enabled4">
+        <widget class="QLineEdit" name="line4">
          <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+          <sizepolicy hsizetype="Expanding" vsizetype="Ignored">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
@@ -1008,23 +1018,32 @@ p, li { white-space: pre-wrap; }
          <property name="font">
           <font>
            <family>Verdana</family>
-           <pointsize>10</pointsize>
+           <pointsize>20</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
          <property name="text">
-          <string>Désactivée</string>
+          <string>4</string>
          </property>
-         <property name="flat">
+         <property name="frame">
+          <bool>false</bool>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="dragEnabled">
+          <bool>false</bool>
+         </property>
+         <property name="readOnly">
           <bool>true</bool>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="enabled5">
+        <widget class="QLineEdit" name="line5">
          <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+          <sizepolicy hsizetype="Expanding" vsizetype="Ignored">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
@@ -1032,23 +1051,32 @@ p, li { white-space: pre-wrap; }
          <property name="font">
           <font>
            <family>Verdana</family>
-           <pointsize>10</pointsize>
+           <pointsize>20</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
          <property name="text">
-          <string>Désactivée</string>
+          <string>5</string>
          </property>
-         <property name="flat">
+         <property name="frame">
+          <bool>false</bool>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="dragEnabled">
+          <bool>false</bool>
+         </property>
+         <property name="readOnly">
           <bool>true</bool>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="enabled6">
+        <widget class="QLineEdit" name="line6">
          <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+          <sizepolicy hsizetype="Expanding" vsizetype="Ignored">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
@@ -1056,20 +1084,50 @@ p, li { white-space: pre-wrap; }
          <property name="font">
           <font>
            <family>Verdana</family>
-           <pointsize>10</pointsize>
+           <pointsize>20</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
          <property name="text">
-          <string>Désactivée</string>
+          <string>6</string>
          </property>
-         <property name="flat">
+         <property name="frame">
+          <bool>false</bool>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="dragEnabled">
+          <bool>false</bool>
+         </property>
+         <property name="readOnly">
           <bool>true</bool>
          </property>
         </widget>
        </item>
       </layout>
+     </widget>
+     <widget class="QPushButton" name="menuButton">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>540</y>
+        <width>161</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Verdana</family>
+        <pointsize>20</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Menu</string>
+      </property>
      </widget>
     </widget>
    </widget>
