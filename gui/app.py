@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from PyQt5 import QtCore
+from PyQt5 import QtCore, QtGui
 from ui_main import Ui_MainWindow
 from password import PasswordDialog
 from drink import DrinkDialog
@@ -28,18 +28,61 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.button_clicked = self.picture1
         self.name_clicked = self.name1
-        self.available_drinks = []
+        self.available_ingredients = []
         self.available_cocktails = []
         self.cocktails = cocktails.cocktails
+        self.create_drink_list()
         # self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
-        self.drink1.clicked.connect(self.loading)
         self.settings.clicked.connect(self.open_password)
+        self.drink1.clicked.connect(lambda: self.loading(self.drink1))
+        self.drink2.clicked.connect(lambda: self.loading(self.drink2))
+        self.drink3.clicked.connect(lambda: self.loading(self.drink3))
+        self.drink4.clicked.connect(lambda: self.loading(self.drink4))
+        self.drink5.clicked.connect(lambda: self.loading(self.drink5))
+        self.drink6.clicked.connect(lambda: self.loading(self.drink6))
+        self.drink7.clicked.connect(lambda: self.loading(self.drink7))
+        self.drink8.clicked.connect(lambda: self.loading(self.drink8))
+        self.drink9.clicked.connect(lambda: self.loading(self.drink9))
         self.picture1.clicked.connect(lambda: self.open_drink(self.picture1))
         self.picture2.clicked.connect(lambda: self.open_drink(self.picture2))
         self.picture3.clicked.connect(lambda: self.open_drink(self.picture3))
         self.picture4.clicked.connect(lambda: self.open_drink(self.picture4))
         self.picture5.clicked.connect(lambda: self.open_drink(self.picture5))
         self.picture6.clicked.connect(lambda: self.open_drink(self.picture6))
+
+    def create_drink_list(self):
+        drink_list = [self.drink1, self.drink2, self.drink3, self.drink4, self.drink5, self.drink6, self.drink7, self.drink8, self.drink9]
+        for drink in drink_list:
+            drink.show()
+            sp = drink.sizePolicy()
+            sp.setRetainSizeWhenHidden(True)
+            drink.setSizePolicy(sp)
+        if len(self.available_cocktails) < 1:
+            self.drink1.hide()
+        if len(self.available_cocktails) < 2:
+            self.drink2.hide()
+        if len(self.available_cocktails) < 3:
+            self.drink3.hide()
+        if len(self.available_cocktails) < 4:
+            self.drink4.hide()
+        if len(self.available_cocktails) < 5:
+            self.drink5.hide()
+        if len(self.available_cocktails) < 6:
+            self.drink6.hide()
+        if len(self.available_cocktails) < 7:
+            self.drink7.hide()
+        if len(self.available_cocktails) < 8:
+            self.drink8.hide()
+        if len(self.available_cocktails) < 9:
+            self.drink9.hide()
+        drinks_enabled = [drink for drink in drink_list if drink.isHidden() is False]
+        i = 0
+        for drink in drinks_enabled:
+            drink.setText(self.available_cocktails[i][0])
+            icon = QtGui.QIcon()
+            icon.addPixmap(QtGui.QPixmap(":/Logo/test.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+            drink.setIcon(icon)
+            i += 1
 
     def timerEvent(self, e):
         """Increases step everytime it is called by timer."""
@@ -56,12 +99,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             self.timer.start(100, self)
 
-    def loading(self):
+    def loading(self, button):
         """Progress bar function."""
         self.tabWidget.setCurrentIndex(1)
         self.__step = 0
         self.timer = QtCore.QBasicTimer()
         self.timer.start(100, self)
+        self.preparing.setText("Preparing " + button.text() + " ...")
 
     def open_password(self):
         self.password_dialog.setModal(True)
