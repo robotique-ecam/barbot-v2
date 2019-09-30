@@ -1,25 +1,45 @@
 #include <Arduino.h>
 #include <AccelStepper.h>
-
-
-#define dirPin 2
-#define stepPin 3
-#define motorInterfaceType 1
-
-
-AccelStepper stepper = AccelStepper(motorInterfaceType, stepPin, dirPin);
-
+#include <MultiStepper.h>
+#include <Pompes.h>
+#include <String.h>
 
 void setup() {
-  // Microsteps are set to 1/32
-  // Therefore 200 x 32 = 6 400 gives
-  // Set the maximum speed in steps per second:
-  stepper.setMaxSpeed(6400);
+  Serial.begin(9600);
+  //Config driver 1,2,4,5,6 LOW et 3 HIGH
 }
+void loop()
+{
+  String message="";
+  message=Serial.read();
 
-void loop() {
-  // Set the speed in steps per second:
-  stepper.setSpeed(6400);
-  // Step the motor with a constant speed as set by setSpeed():
-  stepper.runSpeed();
+
+  if (message[0]=='F')
+  {
+    while (message[0]!='S')
+    {
+      message=Serial.read();
+      ForceP(message[1]);
+    }
+  }
+
+
+  if (message[0]=='R')
+  {
+    while (message[0]!='S')
+    {
+      message=Serial.read();
+      ReverseP(message[1]);
+    }
+  }
+
+  if (message[0]=='P')
+  {
+    Pompe(message);
+    Serial.println("ok"); 
+  }
+
+
+
+
 }
