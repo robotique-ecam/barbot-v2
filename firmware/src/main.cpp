@@ -21,5 +21,5 @@ void loop() {
   // Set the speed in steps per second:
   stepper.setSpeed(6400);
   // Step the motor with a constant speed as set by setSpeed():
-  stepper.runSpeed();  
+  stepper.runSpeed();
 }
