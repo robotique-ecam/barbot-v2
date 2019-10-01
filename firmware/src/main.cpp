@@ -36,10 +36,11 @@ void loop()
   if (message[0]=='P')
   {
     Pompe(message);
-    Serial.println("ok"); 
+    Serial.println("ok");
   }
 
-
-
+  if (message[0]=='M');
+    Carpet(message);
+    Serial.println("ok");
 
 }

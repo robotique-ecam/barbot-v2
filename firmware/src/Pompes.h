@@ -28,7 +28,12 @@
 #define DirPompe6 38
 #define PasPompe6 39
 
+#define EnableCarpet 40
+#define DirCarpet 41
+#define PasCarpet 42
+#define motorInterfaceType 1
 
+AccelStepper stepper1 = AccelStepper(motorInterfaceType,PasCarpet,DirCarpet);
 
 
 void ForceP(char num)
@@ -160,5 +165,24 @@ void Pompe(String message)
   for (int i=0;i<step;i++)
   {
     ForceP(nPompe);
+  }
+}
+
+
+
+void Carpet(String message)
+{
+  int step=0;
+  step=message.substring(3).toInt();
+
+  stepper1.setMaxSpeed(12000);
+  stepper1.setAcceleration(24000);
+  stepper1.moveTo(step);
+
+  for (int i=0;i<step;i++)
+  {
+    if (stepper1.distanceToGo() == 0)
+      stepper1.moveTo(-stepper1.currentPosition());
+    stepper1.run();
   }
 }
