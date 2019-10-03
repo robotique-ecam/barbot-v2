@@ -39,7 +39,7 @@ void loop()
     Serial.println("ok");
   }
 
-  if (message[0]=='M');
+  if (message[0]=='M')
   {
     Carpet(message);
     Serial.println("ok");

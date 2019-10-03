@@ -175,8 +175,8 @@ void Carpet(String message)
   int step=0;
   step=message.substring(3).toInt();
 
-  stepper1.setMaxSpeed(12000);
-  stepper1.setAcceleration(24000);
+  stepper1.setMaxSpeed(6000);
+  stepper1.setAcceleration(12000);
   stepper1.moveTo(step);
 
   for (int i=0;i<step;i++)
