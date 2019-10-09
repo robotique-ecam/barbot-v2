@@ -14,7 +14,7 @@ class DrinkDialog(QDialog, Ui_Dialog):
         self.pump.pressed.connect(self.pump_start)
         self.pump.released.connect(self.pump_stop)
         self.purge.pressed.connect(self.purge_start)
-        self.purge.pressed.connect(self.purge_stop)
+        self.purge.pressed.connect(self.pump_stop)
 
     def update_drinks(self):
         """Updating image and name of ingredient on the admin tab"""
@@ -45,7 +45,7 @@ class DrinkDialog(QDialog, Ui_Dialog):
         self.parent().serial.write("F" + str(self.number_button(self.parent().name_clicked)))
 
     def pump_stop(self):
-        self.parent().serial.write("S" + str(self.number_button(self.parent().name_clicked)))
+        self.parent().serial.write("S")
 
     def purge_start(self):
         self.parent().serial.write("R" + str(self.number_button(self.parent().name_clicked)))
