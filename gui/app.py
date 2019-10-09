@@ -9,6 +9,7 @@ import cocktails
 import messages
 import sys
 import random
+import serial
 
 if hasattr(QtCore.Qt, 'AA_EnableHighDpiScaling'):
     QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True)
@@ -25,7 +26,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         """Init."""
         QMainWindow.__init__(self)
         Ui_MainWindow.__init__(self)
-        self.serial = serial.Serial(port='/dev/ttyUSB0')
+        self.serial = serial.Serial(port='/dev/ttyACM0')
         self.serial.open()
         self.password_dialog = PasswordDialog(self)
         self.drink_dialog = DrinkDialog(self)
@@ -34,7 +35,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.button_clicked = self.picture1
         self.name_clicked = self.name1
         self.available_ingredients = []
-        self.available_cocktails = [["Eau", {"Eau": 200}, ""]]
+        self.available_cocktails = []
         self.cocktails = []
         self.ingredients = []
         self.night_mode = False
