@@ -42,17 +42,26 @@ class DrinkDialog(QDialog, Ui_Dialog):
         self.hide()
 
     def pump_start(self):
-        pass
-        # Start pump
+        self.parent().serial.write("F" + str(self.number_button(self.parent().name_clicked)))
 
     def pump_stop(self):
-        pass
-        # ...
+        self.parent().serial.write("S" + str(self.number_button(self.parent().name_clicked)))
 
     def purge_start(self):
-        pass
-        # ...
+        self.parent().serial.write("R" + str(self.number_button(self.parent().name_clicked)))
 
-    def purge_stop(self):
-        pass
-        # ...
+    def number_button(self, name):
+        pump = 0
+        if name == self.parent().name1:
+            pump = 1
+        elif name == self.parent().name2:
+            pump = 2
+        elif name == self.parent().name3:
+            pump = 3
+        elif name == self.parent().name4:
+            pump = 4
+        elif name == self.parent().name5:
+            pump = 5
+        elif name == self.parent().name6:
+            pump = 6
+        return pump

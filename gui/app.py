@@ -25,6 +25,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         """Init."""
         QMainWindow.__init__(self)
         Ui_MainWindow.__init__(self)
+        self.serial = serial.Serial(port='/dev/ttyUSB0')
+        self.serial.open()
         self.password_dialog = PasswordDialog(self)
         self.drink_dialog = DrinkDialog(self)
         self.setupUi(self)
@@ -103,6 +105,27 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             # icon.addPixmap(QtGui.QPixmap(":/Logo/test.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
             drink.setIcon(icon)
             i += 1
+
+    def send_ingredients(self, button):
+        for drink in self.available_cocktails:
+            if drink[0] == button.text():
+                ing_dict = drink[1]
+                break
+        for key, value in ing_dict.items():
+            pump = 0
+            if key == self.name1.text():
+                pump = 1
+            elif key == self.name2.text():
+                pump = 2
+            elif key == self.name3.text():
+                pump = 3
+            elif key == self.name4.text():
+                pump = 4
+            elif key == self.name5.text():
+                pump = 5
+            elif key == self.name6.text():
+                pump = 6
+            self.serial.write("P" + str(pump) + "-" + str(value))
 
     def loading(self, button):
         """Progress bar function."""
