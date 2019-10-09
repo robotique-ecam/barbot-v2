@@ -14,7 +14,7 @@ class DrinkDialog(QDialog, Ui_Dialog):
         self.pump.pressed.connect(self.pump_start)
         self.pump.released.connect(self.pump_stop)
         self.purge.pressed.connect(self.purge_start)
-        self.purge.pressed.connect(self.pump_stop)
+        self.purge.released.connect(self.pump_stop)
 
     def update_drinks(self):
         """Updating image and name of ingredient on the admin tab"""
