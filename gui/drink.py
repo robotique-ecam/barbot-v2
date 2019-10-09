@@ -42,13 +42,13 @@ class DrinkDialog(QDialog, Ui_Dialog):
         self.hide()
 
     def pump_start(self):
-        self.parent().serial.write("F" + str(self.number_button(self.parent().name_clicked)))
+        self.parent().serial.write(("F" + str(self.number_button(self.parent().name_clicked))).encode())
 
     def pump_stop(self):
-        self.parent().serial.write("S")
+        self.parent().serial.write("S".encode())
 
     def purge_start(self):
-        self.parent().serial.write("R" + str(self.number_button(self.parent().name_clicked)))
+        self.parent().serial.write(("R" + str(self.number_button(self.parent().name_clicked))).encode())
 
     def number_button(self, name):
         pump = 0

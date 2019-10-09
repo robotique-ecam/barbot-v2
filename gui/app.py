@@ -125,7 +125,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 pump = 5
             elif key == self.name6.text():
                 pump = 6
-            self.serial.write("P" + str(pump) + "-" + str(value))
+            self.serial.write(("P" + str(pump) + "-" + str(value)).encode())
 
     def loading(self, button):
         """Progress bar function."""
