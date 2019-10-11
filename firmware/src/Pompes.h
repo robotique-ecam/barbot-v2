@@ -6,36 +6,6 @@
 #define PasPompe1 31
 #define DisablePompe1 8
 
-<<<<<<< HEAD
-#define EnablePompe1 22
-#define DirPompe1 30
-#define PasPompe1 31
-
-#define EnablePompe2 25
-#define DirPompe2 32
-#define PasPompe2 33
-
-#define EnablePompe3 28
-#define DirPompe3 34
-#define PasPompe3 35
-
-#define EnablePompe4 31
-#define DirPompe4 36
-#define PasPompe4 37
-
-#define EnablePompe5 34
-#define DirPompe5 38
-#define PasPompe5 39
-
-#define EnablePompe6 37
-#define DirPompe6 40
-#define PasPompe6 41
-
-#define EnableCarpet 40
-#define DirCarpet 42
-#define PasCarpet 43
-#define motorInterfaceType 1
-=======
 #define DirPompe2 32
 #define PasPompe2 33
 #define DisablePompe2 9
@@ -60,8 +30,10 @@
 #define PasCarpet 000
 #define motorInterfaceType 00 */
 
+#define PompeDis 2
+#define Distrib 3
+
 //AccelStepper stepper1 = AccelStepper(motorInterfaceType,PasCarpet,DirCarpet);
->>>>>>> 6bc38f22bb98818dcfc58cbf5924a0d61af89f63
 
 void ForceP(char num) {
   if (num=='1') {
@@ -214,3 +186,14 @@ void Carpet(String message) {
   }
 }
 */
+
+void gobelet (){
+  digitalWrite(PompeDis, HIGH);
+  delay(1000);
+  digitalWrite(Distrib, HIGH);
+  delay(2000);
+  digitalWrite(Distrib, LOW);
+  delay(2000);
+  digitalWrite(PompeDis, LOW);
+  delay(1000);
+}
