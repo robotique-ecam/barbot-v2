@@ -40,7 +40,7 @@ void setup() {
 void loop() {
 
   if(Serial.available()) {
-    memset(message, 0, sizeof(message)); // Clear buffer
+    memset(message, 0, 10); // Clear buffer
     Serial.readBytesUntil(';', message, 10);
   }
 
@@ -48,6 +48,10 @@ void loop() {
     while (message[0]!='S')
     {
       //message=Serial.read();
+      if(Serial.available()) {
+        memset(message, 0, 10); // Clear buffer
+        Serial.readBytesUntil(';', message, 10);
+      }
       ForceP(message[1]);
       disablePump(message[1]);
     }
@@ -57,6 +61,10 @@ void loop() {
   if (message[0]=='R') {
     while (message[0]!='S') {
       //message=Serial.read();
+      if(Serial.available()) {
+        memset(message, 0, 10); // Clear buffer
+        Serial.readBytesUntil(';', message, 10);
+      }
       ReverseP(message[1]);
       disablePump(message[1]);
     }
