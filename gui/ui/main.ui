@@ -72,9 +72,9 @@
      <enum>Qt::ActionsContextMenu</enum>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>0</number>
     </property>
-    <widget class="QWidget" name="tabMenu" native="true">
+    <widget class="QWidget" name="tabMenu">
      <widget class="QTextEdit" name="chooseDrink">
       <property name="enabled">
        <bool>true</bool>
@@ -182,7 +182,7 @@ p, li { white-space: pre-wrap; }
           </font>
          </property>
          <property name="styleSheet">
-          <string>background:transparent;</string>
+          <string notr="true">background:transparent;</string>
          </property>
          <property name="text">
           <string/>
@@ -437,7 +437,7 @@ p, li { white-space: pre-wrap; }
      <zorder>chooseDrink</zorder>
      <zorder>gridLayoutWidget</zorder>
     </widget>
-    <widget class="QWidget" name="tabLoading" native="true">
+    <widget class="QWidget" name="tabLoading">
      <widget class="QProgressBar" name="progress">
       <property name="geometry">
        <rect>
@@ -491,7 +491,7 @@ p, li { white-space: pre-wrap; }
       </property>
      </widget>
     </widget>
-    <widget class="QWidget" name="tabFinish" native="true">
+    <widget class="QWidget" name="tabFinish">
      <widget class="QLineEdit" name="finishDrink">
       <property name="geometry">
        <rect>
@@ -544,7 +544,7 @@ p, li { white-space: pre-wrap; }
       </property>
      </widget>
     </widget>
-    <widget class="QWidget" name="tabAdmin" native="true">
+    <widget class="QWidget" name="tabAdmin">
      <widget class="QWidget" name="horizontalLayoutWidget">
       <property name="geometry">
        <rect>
