@@ -9,6 +9,7 @@ import cocktails
 import messages
 import sys
 import random
+import serial
 
 if hasattr(QtCore.Qt, 'AA_EnableHighDpiScaling'):
     QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True)
@@ -25,6 +26,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         """Init."""
         QMainWindow.__init__(self)
         Ui_MainWindow.__init__(self)
+        self.serial = serial.Serial(port='/dev/ttyACM0')
         self.password_dialog = PasswordDialog(self)
         self.drink_dialog = DrinkDialog(self)
         self.setupUi(self)
@@ -32,7 +34,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.button_clicked = self.picture1
         self.name_clicked = self.name1
         self.available_ingredients = []
-        self.available_cocktails = [["Eau", {"Eau": 200}, ""]]
+        self.available_cocktails = []
         self.cocktails = []
         self.ingredients = []
         self.night_mode = False
@@ -104,8 +106,30 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             drink.setIcon(icon)
             i += 1
 
+    def send_ingredients(self, button):
+        for drink in self.available_cocktails:
+            if drink[0] == button.text():
+                ing_dict = drink[1]
+                break
+        for key, value in ing_dict.items():
+            pump = 0
+            if key == self.name1.text():
+                pump = 1
+            elif key == self.name2.text():
+                pump = 2
+            elif key == self.name3.text():
+                pump = 3
+            elif key == self.name4.text():
+                pump = 4
+            elif key == self.name5.text():
+                pump = 5
+            elif key == self.name6.text():
+                pump = 6
+            self.serial.write(("P" + str(pump) + "-" + str(value) + ";").encode())
+
     def loading(self, button):
         """Progress bar function."""
+        self.send_ingredients(button)
         self.tabWidget.setCurrentIndex(1)
         self.__step = 0
         self.timer = QtCore.QBasicTimer()

@@ -72,9 +72,9 @@
      <enum>Qt::ActionsContextMenu</enum>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>0</number>
     </property>
-    <widget class="QWidget" name="tabMenu" native="true">
+    <widget class="QWidget" name="tabMenu">
      <widget class="QTextEdit" name="chooseDrink">
       <property name="enabled">
        <bool>true</bool>
@@ -82,8 +82,8 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>0</y>
-        <width>961</width>
+        <y>5</y>
+        <width>1024</width>
         <height>51</height>
        </rect>
       </property>
@@ -97,6 +97,9 @@
       </property>
       <property name="autoFillBackground">
        <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background:transparent;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::NoFrame</enum>
@@ -115,7 +118,7 @@
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Verdana'; font-size:7.8pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:24pt; font-weight:600;&quot;&gt;Sélectionnez votre boisson&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:24pt; font-weight:600; color:#000000;&quot;&gt;Sélectionnez votre boisson&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="textInteractionFlags">
        <set>Qt::NoTextInteraction</set>
@@ -124,8 +127,8 @@ p, li { white-space: pre-wrap; }
      <widget class="QWidget" name="gridLayoutWidget">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>60</y>
+        <x>60</x>
+        <y>70</y>
         <width>911</width>
         <height>511</height>
        </rect>
@@ -149,7 +152,7 @@ p, li { white-space: pre-wrap; }
           </font>
          </property>
          <property name="styleSheet">
-          <string notr="true"/>
+          <string notr="true">background:transparent;</string>
          </property>
          <property name="text">
           <string/>
@@ -177,6 +180,9 @@ p, li { white-space: pre-wrap; }
            <weight>50</weight>
            <bold>false</bold>
           </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background:transparent;</string>
          </property>
          <property name="text">
           <string/>
@@ -207,7 +213,7 @@ p, li { white-space: pre-wrap; }
           </font>
          </property>
          <property name="styleSheet">
-          <string notr="true"/>
+          <string notr="true">background:transparent;</string>
          </property>
          <property name="text">
           <string/>
@@ -238,7 +244,7 @@ p, li { white-space: pre-wrap; }
           </font>
          </property>
          <property name="styleSheet">
-          <string notr="true"/>
+          <string notr="true">background:transparent;</string>
          </property>
          <property name="text">
           <string/>
@@ -269,7 +275,7 @@ p, li { white-space: pre-wrap; }
           </font>
          </property>
          <property name="styleSheet">
-          <string notr="true"/>
+          <string notr="true">background:transparent;</string>
          </property>
          <property name="text">
           <string/>
@@ -300,7 +306,7 @@ p, li { white-space: pre-wrap; }
           </font>
          </property>
          <property name="styleSheet">
-          <string notr="true"/>
+          <string notr="true">background:transparent;</string>
          </property>
          <property name="text">
           <string/>
@@ -331,7 +337,7 @@ p, li { white-space: pre-wrap; }
           </font>
          </property>
          <property name="styleSheet">
-          <string notr="true"/>
+          <string notr="true">background:transparent;</string>
          </property>
          <property name="text">
           <string/>
@@ -365,7 +371,7 @@ p, li { white-space: pre-wrap; }
           <bool>false</bool>
          </property>
          <property name="styleSheet">
-          <string notr="true"/>
+          <string notr="true">background:transparent;</string>
          </property>
          <property name="text">
           <string/>
@@ -396,7 +402,7 @@ p, li { white-space: pre-wrap; }
           </font>
          </property>
          <property name="styleSheet">
-          <string notr="true"/>
+          <string notr="true">background:transparent;</string>
          </property>
          <property name="text">
           <string/>
@@ -411,8 +417,27 @@ p, li { white-space: pre-wrap; }
        </item>
       </layout>
      </widget>
+     <widget class="QLabel" name="background">
+      <property name="geometry">
+       <rect>
+        <x>4</x>
+        <y>0</y>
+        <width>1021</width>
+        <height>601</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-image: url(:/Logo/backgroundMenu.png);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <zorder>background</zorder>
+     <zorder>chooseDrink</zorder>
+     <zorder>gridLayoutWidget</zorder>
     </widget>
-    <widget class="QWidget" name="tabLoading" native="true">
+    <widget class="QWidget" name="tabLoading">
      <widget class="QProgressBar" name="progress">
       <property name="geometry">
        <rect>
@@ -466,7 +491,7 @@ p, li { white-space: pre-wrap; }
       </property>
      </widget>
     </widget>
-    <widget class="QWidget" name="tabFinish" native="true">
+    <widget class="QWidget" name="tabFinish">
      <widget class="QLineEdit" name="finishDrink">
       <property name="geometry">
        <rect>
@@ -519,7 +544,7 @@ p, li { white-space: pre-wrap; }
       </property>
      </widget>
     </widget>
-    <widget class="QWidget" name="tabAdmin" native="true">
+    <widget class="QWidget" name="tabAdmin">
      <widget class="QWidget" name="horizontalLayoutWidget">
       <property name="geometry">
        <rect>
@@ -901,7 +926,7 @@ p, li { white-space: pre-wrap; }
         <x>0</x>
         <y>50</y>
         <width>1011</width>
-        <height>71</height>
+        <height>87</height>
        </rect>
       </property>
       <layout class="QHBoxLayout" name="drinkNumber">
