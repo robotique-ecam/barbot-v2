@@ -24,6 +24,10 @@ void setup() {
   pinMode(DisablePompe4, OUTPUT);
   pinMode(DisablePompe5, OUTPUT);
   pinMode(DisablePompe6, OUTPUT);
+  pinMode(PompeDis, OUTPUT);
+  pinMode(Distrib, OUTPUT);
+  digitalWrite(PompeDis,LOW);
+  digitalWrite(Distrib,LOW);
   digitalWrite(DisablePompe1,HIGH);
   digitalWrite(DisablePompe2,HIGH);
   digitalWrite(DisablePompe3,HIGH);

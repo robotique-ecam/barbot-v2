@@ -189,7 +189,7 @@ void Carpet(String message) {
 
 void gobelet (){
   digitalWrite(PompeDis, HIGH);
-  delay(1000);
+  delay(2000);
   digitalWrite(Distrib, HIGH);
   delay(2000);
   digitalWrite(Distrib, LOW);
