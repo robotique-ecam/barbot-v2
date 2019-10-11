@@ -5,32 +5,32 @@
 
 
 #define EnablePompe1 22
-#define DirPompe1 23
-#define PasPompe1 24
+#define DirPompe1 30
+#define PasPompe1 31
 
 #define EnablePompe2 25
-#define DirPompe2 26
-#define PasPompe2 27
+#define DirPompe2 32
+#define PasPompe2 33
 
 #define EnablePompe3 28
-#define DirPompe3 29
-#define PasPompe3 30
+#define DirPompe3 34
+#define PasPompe3 35
 
 #define EnablePompe4 31
-#define DirPompe4 32
-#define PasPompe4 33
+#define DirPompe4 36
+#define PasPompe4 37
 
 #define EnablePompe5 34
-#define DirPompe5 35
-#define PasPompe5 36
+#define DirPompe5 38
+#define PasPompe5 39
 
 #define EnablePompe6 37
-#define DirPompe6 38
-#define PasPompe6 39
+#define DirPompe6 40
+#define PasPompe6 41
 
 #define EnableCarpet 40
-#define DirCarpet 41
-#define PasCarpet 42
+#define DirCarpet 42
+#define PasCarpet 43
 #define motorInterfaceType 1
 
 AccelStepper stepper1 = AccelStepper(motorInterfaceType,PasCarpet,DirCarpet);
