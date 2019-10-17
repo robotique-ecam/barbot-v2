@@ -2,6 +2,8 @@
 #include <AccelStepper.h>
 #include <String.h>
 
+int dis, dir, pas;
+
 #define DirPompe1 30
 #define PasPompe1 31
 #define DisablePompe1 8
@@ -30,140 +32,39 @@
 #define PasCarpet 000
 #define motorInterfaceType 00 */
 
-#define PompeDis 2
-#define Distrib 3
-
 //AccelStepper stepper1 = AccelStepper(motorInterfaceType,PasCarpet,DirCarpet);
 
 void ForceP(char num) {
-  if (num=='1') {
-    digitalWrite(DisablePompe1,LOW);
-    digitalWrite(DirPompe1,HIGH);
-    digitalWrite(PasPompe1,HIGH);
-    delayMicroseconds(500);
-    digitalWrite(PasPompe1,LOW);
-    delayMicroseconds(500);
-  }
-  else if (num=='2') {
-    digitalWrite(DisablePompe2,LOW);
-    digitalWrite(DirPompe2,HIGH);
-    digitalWrite(PasPompe2,HIGH);
-    delayMicroseconds(500);
-    digitalWrite(PasPompe2,LOW);
-    delayMicroseconds(500);
-  }
-  else if (num=='3') {
-    digitalWrite(DisablePompe3,LOW);
-    digitalWrite(DirPompe3,HIGH);
-    digitalWrite(PasPompe3,HIGH);
-    delayMicroseconds(100);
-    digitalWrite(PasPompe3,LOW);
-    delayMicroseconds(100);
-  }
-  else if (num=='4') {
-    digitalWrite(DisablePompe4,LOW);
-    digitalWrite(DirPompe4,HIGH);
-    digitalWrite(PasPompe4,HIGH);
-    delayMicroseconds(500);
-    digitalWrite(PasPompe4,LOW);
-    delayMicroseconds(500);
-  }
-  else if (num=='5') {
-    digitalWrite(DisablePompe5,LOW);
-    digitalWrite(DirPompe5,HIGH);
-    digitalWrite(PasPompe5,HIGH);
-    delayMicroseconds(500);
-    digitalWrite(PasPompe5,LOW);
-    delayMicroseconds(500);
-  }
-  else if (num=='6') {
-    digitalWrite(DisablePompe6,LOW);
-    digitalWrite(DirPompe6,HIGH);
-    digitalWrite(PasPompe6,HIGH);
-    delayMicroseconds(500);
-    digitalWrite(PasPompe6,LOW);
-    delayMicroseconds(500);
-  }
+  getPump(num, &dis, &dir, &pas);
+  digitalWrite(dis,LOW);
+  digitalWrite(dir,HIGH);
+  digitalWrite(pas,HIGH);
+  delayMicroseconds(500);
+  digitalWrite(pas,LOW);
+  delayMicroseconds(500);
 }
 
 void ReverseP(char num) {
-  if (num=='1') {
-    digitalWrite(DisablePompe1,LOW);
-    digitalWrite(DirPompe1,LOW);
-    digitalWrite(PasPompe1,HIGH);
-    delayMicroseconds(500);
-    digitalWrite(PasPompe1,LOW);
-    delayMicroseconds(500);
-  }
-  else if (num=='2') {
-    digitalWrite(DisablePompe2,LOW);
-    digitalWrite(DirPompe2,LOW);
-    digitalWrite(PasPompe2,HIGH);
-    delayMicroseconds(500);
-    digitalWrite(PasPompe2,LOW);
-    delayMicroseconds(500);
-  }
-  else if (num=='3') {
-    digitalWrite(DisablePompe3,LOW);
-    digitalWrite(DirPompe3,LOW);
-    digitalWrite(PasPompe3,HIGH);
-    delayMicroseconds(500);
-    digitalWrite(PasPompe3,LOW);
-    delayMicroseconds(500);
-  }
-  else if (num=='4') {
-    digitalWrite(DisablePompe4,LOW);
-    digitalWrite(DirPompe4,LOW);
-    digitalWrite(PasPompe4,HIGH);
-    delayMicroseconds(500);
-    digitalWrite(PasPompe4,LOW);
-    delayMicroseconds(500);
-  }
-  else if (num=='5') {
-    digitalWrite(DisablePompe5,LOW);
-    digitalWrite(DirPompe5,LOW);
-    digitalWrite(PasPompe5,HIGH);
-    delayMicroseconds(500);
-    digitalWrite(PasPompe5,LOW);
-    delayMicroseconds(500);
-  }
-  else if (num=='6') {
-    digitalWrite(DisablePompe6,LOW);
-    digitalWrite(DirPompe6,LOW);
-    digitalWrite(PasPompe6,HIGH);
-    delayMicroseconds(500);
-    digitalWrite(PasPompe6,LOW);
-    delayMicroseconds(500);
-  }
+  getPump(num, &dis, &dir, &pas);
+  digitalWrite(dis,LOW);
+  digitalWrite(dir,LOW);
+  digitalWrite(pas,HIGH);
+  delayMicroseconds(500);
+  digitalWrite(pas,LOW);
+  delayMicroseconds(500);
 }
 
 void disablePump(char num) {
-  if (num=='1') {
-    digitalWrite(DisablePompe1,HIGH);
-  }
-  else if (num=='2') {
-    digitalWrite(DisablePompe2,HIGH);
-  }
-  else if (num=='3') {
-    digitalWrite(DisablePompe3,HIGH);
-  }
-  else if (num=='4') {
-    digitalWrite(DisablePompe4,HIGH);
-  }
-  else if (num=='5') {
-    digitalWrite(DisablePompe5,HIGH);
-  }
-  else if (num=='6') {
-    digitalWrite(DisablePompe6,HIGH);
-  }
+  getPump(num, &dis, &dir, &pas);
+  digitalWrite(dis,HIGH);
 }
 
 void Pompe(char* message) {
   long ml = 0;
   ml = atoi(message + 3);
   char n = message[1];
-  long step=ml*3200;
-
+  long step=ml*50;
+  //Serial.println("Enabling Pump " + message[1] + " for " + step + "ml...");
   for (int i=0;i<step;i++) {
     ForceP(n);
   }
@@ -187,13 +88,37 @@ void Carpet(String message) {
 }
 */
 
-void gobelet (){
-  digitalWrite(PompeDis, HIGH);
-  delay(2000);
-  digitalWrite(Distrib, HIGH);
-  delay(2000);
-  digitalWrite(Distrib, LOW);
-  delay(2000);
-  digitalWrite(PompeDis, LOW);
-  delay(1000);
+int getPump(char num, int *dis, int *dir, int *pas) {
+  switch(num) {
+    case '1':
+      *dis = DisablePompe1;
+      *dir = DirPompe1;
+      *pas = PasPompe1;
+      break;
+    case '2':
+      *dis = DisablePompe2;
+      *dir = DirPompe2;
+      *pas = PasPompe2;
+      break;
+    case '3':
+      *dis = DisablePompe3;
+      *dir = DirPompe3;
+      *pas = PasPompe3;
+      break;
+    case '4':
+      *dis = DisablePompe4;
+      *dir = DirPompe4;
+      *pas = PasPompe4;
+      break;
+    case '5':
+      *dis = DisablePompe5;
+      *dir = DirPompe5;
+      *pas = PasPompe5;
+      break;
+    case '6':
+      *dis = DisablePompe6;
+      *dir = DirPompe6;
+      *pas = PasPompe6;
+      break;
+  }
 }

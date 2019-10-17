@@ -1,4 +1,3 @@
-#include <Arduino.h>
 #include <AccelStepper.h>
 #include "Pompes.h"
 #include <String.h>
@@ -24,10 +23,6 @@ void setup() {
   pinMode(DisablePompe4, OUTPUT);
   pinMode(DisablePompe5, OUTPUT);
   pinMode(DisablePompe6, OUTPUT);
-  pinMode(PompeDis, OUTPUT);
-  pinMode(Distrib, OUTPUT);
-  digitalWrite(PompeDis,LOW);
-  digitalWrite(Distrib,LOW);
   digitalWrite(DisablePompe1,HIGH);
   digitalWrite(DisablePompe2,HIGH);
   digitalWrite(DisablePompe3,HIGH);
@@ -38,51 +33,41 @@ void setup() {
   Serial.begin(9600);
 }
 void loop() {
-
+Serial.println(disable);
+  Serial.println(dir);
+  Serial.println(ste);
   if(Serial.available()) {
-    memset(message, 0, 10); // Clear buffer
+    memset(message, 0, sizeof(message)); // Clear buffer
     Serial.readBytesUntil(';', message, 10);
   }
 
   if (message[0]=='F') {
-    while (message[0]!='S')
-    {
-      //message=Serial.read();
-      if(Serial.available()) {
-        memset(message, 0, 10); // Clear buffer
-        Serial.readBytesUntil(';', message, 10);
-      }
+    //Serial.println("Enabling Pump " + message[1] + " forward...");
+    while (message[0]!='S') {
       ForceP(message[1]);
       disablePump(message[1]);
     }
+    //Serial.println("Stopping Pump " + message[1] + ".");
   }
 
 
   if (message[0]=='R') {
+    //Serial.println("Enabling Pump " + message[1] + " backwards...");
     while (message[0]!='S') {
-      //message=Serial.read();
-      if(Serial.available()) {
-        memset(message, 0, 10); // Clear buffer
-        Serial.readBytesUntil(';', message, 10);
-      }
       ReverseP(message[1]);
       disablePump(message[1]);
     }
+    //Serial.println("Stopping Pump " + message[1] + ".");
   }
 
   if (message[0]=='P') {
     Pompe(message);
     disablePump(message[1]);
-    Serial.println("ok");
+    //Serial.println("Stopping Pump " + message[1] + ".");
   }
 
   if (message[0]=='M') {
     //Carpet(message);
-    Serial.println("ok");
-  }
-
-  if (message[0]=='G'){
-    gobelet();
     Serial.println("ok");
   }
 
