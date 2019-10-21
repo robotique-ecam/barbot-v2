@@ -34,6 +34,41 @@ int dis, dir, pas;
 
 //AccelStepper stepper1 = AccelStepper(motorInterfaceType,PasCarpet,DirCarpet);
 
+int getPump(char num, int *dis, int *dir, int *pas) {
+  switch(num) {
+    case '1':
+      *dis = DisablePompe1;
+      *dir = DirPompe1;
+      *pas = PasPompe1;
+      break;
+    case '2':
+      *dis = DisablePompe2;
+      *dir = DirPompe2;
+      *pas = PasPompe2;
+      break;
+    case '3':
+      *dis = DisablePompe3;
+      *dir = DirPompe3;
+      *pas = PasPompe3;
+      break;
+    case '4':
+      *dis = DisablePompe4;
+      *dir = DirPompe4;
+      *pas = PasPompe4;
+      break;
+    case '5':
+      *dis = DisablePompe5;
+      *dir = DirPompe5;
+      *pas = PasPompe5;
+      break;
+    case '6':
+      *dis = DisablePompe6;
+      *dir = DirPompe6;
+      *pas = PasPompe6;
+      break;
+  }
+}
+
 void ForceP(char num) {
   getPump(num, &dis, &dir, &pas);
   digitalWrite(dis,LOW);
@@ -87,38 +122,3 @@ void Carpet(String message) {
   }
 }
 */
-
-int getPump(char num, int *dis, int *dir, int *pas) {
-  switch(num) {
-    case '1':
-      *dis = DisablePompe1;
-      *dir = DirPompe1;
-      *pas = PasPompe1;
-      break;
-    case '2':
-      *dis = DisablePompe2;
-      *dir = DirPompe2;
-      *pas = PasPompe2;
-      break;
-    case '3':
-      *dis = DisablePompe3;
-      *dir = DirPompe3;
-      *pas = PasPompe3;
-      break;
-    case '4':
-      *dis = DisablePompe4;
-      *dir = DirPompe4;
-      *pas = PasPompe4;
-      break;
-    case '5':
-      *dis = DisablePompe5;
-      *dir = DirPompe5;
-      *pas = PasPompe5;
-      break;
-    case '6':
-      *dis = DisablePompe6;
-      *dir = DirPompe6;
-      *pas = PasPompe6;
-      break;
-  }
-}

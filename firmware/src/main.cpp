@@ -33,9 +33,6 @@ void setup() {
   Serial.begin(9600);
 }
 void loop() {
-Serial.println(disable);
-  Serial.println(dir);
-  Serial.println(ste);
   if(Serial.available()) {
     memset(message, 0, sizeof(message)); // Clear buffer
     Serial.readBytesUntil(';', message, 10);
@@ -44,6 +41,10 @@ Serial.println(disable);
   if (message[0]=='F') {
     //Serial.println("Enabling Pump " + message[1] + " forward...");
     while (message[0]!='S') {
+      if(Serial.available()) {
+        memset(message, 0, sizeof(message)); // Clear buffer
+        Serial.readBytesUntil(';', message, 10);
+      }
       ForceP(message[1]);
       disablePump(message[1]);
     }
@@ -54,6 +55,10 @@ Serial.println(disable);
   if (message[0]=='R') {
     //Serial.println("Enabling Pump " + message[1] + " backwards...");
     while (message[0]!='S') {
+      if(Serial.available()) {
+        memset(message, 0, sizeof(message)); // Clear buffer
+        Serial.readBytesUntil(';', message, 10);
+      }
       ReverseP(message[1]);
       disablePump(message[1]);
     }
