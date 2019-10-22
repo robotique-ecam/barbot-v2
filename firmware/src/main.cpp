@@ -17,6 +17,8 @@ void setup() {
   pinMode(PasPompe5, OUTPUT);
   pinMode(DirPompe6, OUTPUT);
   pinMode(PasPompe6, OUTPUT);
+  pinMode(PompeDis, OUTPUT);
+  pinMode(Distrib, OUTPUT);
   pinMode(DisablePompe1, OUTPUT);
   pinMode(DisablePompe2, OUTPUT);
   pinMode(DisablePompe3, OUTPUT);
@@ -29,6 +31,8 @@ void setup() {
   digitalWrite(DisablePompe4,HIGH);
   digitalWrite(DisablePompe5,HIGH);
   digitalWrite(DisablePompe6,HIGH);
+  digitalWrite(PompeDis,LOW);
+  digitalWrite(Distrib,LOW);
 
   Serial.begin(9600);
 }
@@ -73,6 +77,11 @@ void loop() {
 
   if (message[0]=='M') {
     //Carpet(message);
+    Serial.println("ok");
+  }
+
+  if (message[0]=='G') {
+    gobelet();
     Serial.println("ok");
   }
 

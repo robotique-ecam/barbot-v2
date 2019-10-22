@@ -28,6 +28,9 @@ int dis, dir, pas;
 #define PasPompe6 41
 #define DisablePompe6 13
 
+#define PompeDis 2
+#define Distrib 3
+
 #define DirCarpet 00
 #define PasCarpet 000
 #define motorInterfaceType 00 */
@@ -105,6 +108,16 @@ void Pompe(char* message) {
   }
 }
 
+void gobelet() {
+  digitalWrite(PompeDis, HIGH);
+  delay(2000);
+  digitalWrite(Distrib, HIGH);
+  delay(2000);
+  digitalWrite(Distrib, LOW);
+  delay(2000);
+  digitalWrite(PompeDis, LOW);
+  delay(1000);
+}
 
 /*
 void Carpet(String message) {
