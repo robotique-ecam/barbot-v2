@@ -50,8 +50,8 @@ void loop() {
         Serial.readBytesUntil(';', message, 10);
       }
       ForceP(message[1]);
-      disablePump(message[1]);
     }
+    disablePump(message[1]);
     //Serial.println("Stopping Pump " + message[1] + ".");
   }
 
@@ -64,8 +64,8 @@ void loop() {
         Serial.readBytesUntil(';', message, 10);
       }
       ReverseP(message[1]);
-      disablePump(message[1]);
     }
+    disablePump(message[1]);
     //Serial.println("Stopping Pump " + message[1] + ".");
   }
 
