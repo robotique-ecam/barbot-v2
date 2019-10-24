@@ -26,7 +26,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         """Init."""
         QMainWindow.__init__(self)
         Ui_MainWindow.__init__(self)
-        self.serial = serial.Serial(port='/dev/ttyACM0')
+        # self.serial = serial.Serial(port='/dev/ttyACM0')
         self.password_dialog = PasswordDialog(self)
         self.drink_dialog = DrinkDialog(self)
         self.setupUi(self)
@@ -34,7 +34,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.button_clicked = self.picture1
         self.name_clicked = self.name1
         self.available_ingredients = []
-        self.available_cocktails = []
+        self.available_cocktails = [["Vodka-Redbull", {"Vodka": 200, "Redbull": 200}, ""]]
         self.cocktails = []
         self.ingredients = []
         self.night_mode = False
@@ -75,29 +75,26 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def create_drink_list(self):
         drink_list = [self.drink1, self.drink2, self.drink3, self.drink4, self.drink5, self.drink6, self.drink7, self.drink8, self.drink9]
         for drink in drink_list:
-            drink.show()
-            sp = drink.sizePolicy()
-            sp.setRetainSizeWhenHidden(True)
-            drink.setSizePolicy(sp)
+            drink.setStyleSheet("")
         if len(self.available_cocktails) < 1:
-            self.drink1.hide()
+            self.drink1.setStyleSheet("background: transparent;")
         if len(self.available_cocktails) < 2:
-            self.drink2.hide()
+            self.drink2.setStyleSheet("background: transparent;")
         if len(self.available_cocktails) < 3:
-            self.drink3.hide()
+            self.drink3.setStyleSheet("background: transparent;")
         if len(self.available_cocktails) < 4:
-            self.drink4.hide()
+            self.drink4.setStyleSheet("background: transparent;")
         if len(self.available_cocktails) < 5:
-            self.drink5.hide()
+            self.drink5.setStyleSheet("background: transparent;")
         if len(self.available_cocktails) < 6:
-            self.drink6.hide()
+            self.drink6.setStyleSheet("background: transparent;")
         if len(self.available_cocktails) < 7:
-            self.drink7.hide()
+            self.drink7.setStyleSheet("background: transparent;")
         if len(self.available_cocktails) < 8:
-            self.drink8.hide()
+            self.drink8.setStyleSheet("background: transparent;")
         if len(self.available_cocktails) < 9:
-            self.drink9.hide()
-        drinks_enabled = [drink for drink in drink_list if drink.isHidden() is False]
+            self.drink9.setStyleSheet("background: transparent;")
+        drinks_enabled = [drink for drink in drink_list if drink.styleSheet() == ""]
         i = 0
         for drink in drinks_enabled:
             drink.setText(self.available_cocktails[i][0])
@@ -107,6 +104,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             i += 1
 
     def send_ingredients(self, button):
+        ing_dict = {}
         for drink in self.available_cocktails:
             if drink[0] == button.text():
                 ing_dict = drink[1]
@@ -125,28 +123,29 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 pump = 5
             elif key == self.name6.text():
                 pump = 6
-            self.serial.write(("P" + str(pump) + "-" + str(value) + ";").encode())
+            # self.serial.write(("P" + str(pump) + "-" + str(value) + ";").encode())
 
     def loading(self, button):
         """Progress bar function."""
-        self.send_ingredients(button)
-        self.tabWidget.setCurrentIndex(1)
-        self.__step = 0
-        self.timer = QtCore.QBasicTimer()
-        self.timer.start(100, self)
-        random.shuffle(messages.messages)
-        for i in range(0, 100):
-            if not self.timer.isActive():
-                break
-            for j in range(0, 5):
+        if button.styleSheet() == "":
+            self.send_ingredients(button)
+            self.tabWidget.setCurrentIndex(1)
+            self.__step = 0
+            self.timer = QtCore.QBasicTimer()
+            self.timer.start(100, self)
+            random.shuffle(messages.messages)
+            for i in range(0, 100):
                 if not self.timer.isActive():
                     break
-                self.preparing.setText(messages.messages[i % len(messages.messages)] + " .")
-                QtTest.QTest.qWait(500)
-                self.preparing.setText(messages.messages[i % len(messages.messages)] + " ..")
-                QtTest.QTest.qWait(500)
-                self.preparing.setText(messages.messages[i % len(messages.messages)] + " ...")
-                QtTest.QTest.qWait(500)
+                for j in range(0, 5):
+                    if not self.timer.isActive():
+                        break
+                    self.preparing.setText(messages.messages[i % len(messages.messages)] + " .")
+                    QtTest.QTest.qWait(500)
+                    self.preparing.setText(messages.messages[i % len(messages.messages)] + " ..")
+                    QtTest.QTest.qWait(500)
+                    self.preparing.setText(messages.messages[i % len(messages.messages)] + " ...")
+                    QtTest.QTest.qWait(500)
 
     def open_password(self):
         self.password_dialog.setModal(True)

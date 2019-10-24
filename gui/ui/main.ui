@@ -124,299 +124,6 @@ p, li { white-space: pre-wrap; }
        <set>Qt::NoTextInteraction</set>
       </property>
      </widget>
-     <widget class="QWidget" name="gridLayoutWidget">
-      <property name="geometry">
-       <rect>
-        <x>60</x>
-        <y>70</y>
-        <width>911</width>
-        <height>511</height>
-       </rect>
-      </property>
-      <layout class="QGridLayout" name="drinkGrid">
-       <item row="1" column="0">
-        <widget class="QPushButton" name="drink4">
-         <property name="enabled">
-          <bool>true</bool>
-         </property>
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="font">
-          <font>
-           <family>Verdana</family>
-           <pointsize>40</pointsize>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">background:transparent;</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>299</width>
-           <height>166</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0">
-        <widget class="QPushButton" name="drink1">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="font">
-          <font>
-           <family>Verdana</family>
-           <pointsize>40</pointsize>
-           <weight>50</weight>
-           <bold>false</bold>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">background:transparent;</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>299</width>
-           <height>166</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="2">
-        <widget class="QPushButton" name="drink3">
-         <property name="enabled">
-          <bool>true</bool>
-         </property>
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="font">
-          <font>
-           <family>Verdana</family>
-           <pointsize>40</pointsize>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">background:transparent;</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>299</width>
-           <height>166</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="2">
-        <widget class="QPushButton" name="drink6">
-         <property name="enabled">
-          <bool>true</bool>
-         </property>
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="font">
-          <font>
-           <family>Verdana</family>
-           <pointsize>40</pointsize>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">background:transparent;</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>299</width>
-           <height>166</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QPushButton" name="drink8">
-         <property name="enabled">
-          <bool>true</bool>
-         </property>
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="font">
-          <font>
-           <family>Verdana</family>
-           <pointsize>40</pointsize>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">background:transparent;</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>299</width>
-           <height>166</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0">
-        <widget class="QPushButton" name="drink7">
-         <property name="enabled">
-          <bool>true</bool>
-         </property>
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="font">
-          <font>
-           <family>Verdana</family>
-           <pointsize>40</pointsize>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">background:transparent;</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>299</width>
-           <height>166</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QPushButton" name="drink5">
-         <property name="enabled">
-          <bool>true</bool>
-         </property>
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="font">
-          <font>
-           <family>Verdana</family>
-           <pointsize>40</pointsize>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">background:transparent;</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>299</width>
-           <height>166</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="2">
-        <widget class="QPushButton" name="drink9">
-         <property name="enabled">
-          <bool>true</bool>
-         </property>
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="font">
-          <font>
-           <family>Verdana</family>
-           <pointsize>40</pointsize>
-          </font>
-         </property>
-         <property name="autoFillBackground">
-          <bool>false</bool>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">background:transparent;</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>299</width>
-           <height>166</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QPushButton" name="drink2">
-         <property name="enabled">
-          <bool>true</bool>
-         </property>
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="font">
-          <font>
-           <family>Verdana</family>
-           <pointsize>40</pointsize>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">background:transparent;</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>299</width>
-           <height>166</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
      <widget class="QLabel" name="background">
       <property name="geometry">
        <rect>
@@ -433,9 +140,161 @@ p, li { white-space: pre-wrap; }
        <string/>
       </property>
      </widget>
+     <widget class="QPushButton" name="drink1">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>70</y>
+        <width>298</width>
+        <height>165</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: transparent;</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="drink8">
+      <property name="geometry">
+       <rect>
+        <x>365</x>
+        <y>414</y>
+        <width>298</width>
+        <height>165</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: transparent;</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="drink9">
+      <property name="geometry">
+       <rect>
+        <x>670</x>
+        <y>414</y>
+        <width>298</width>
+        <height>165</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: transparent;</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="drink6">
+      <property name="geometry">
+       <rect>
+        <x>670</x>
+        <y>242</y>
+        <width>298</width>
+        <height>165</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: transparent;</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="drink5">
+      <property name="geometry">
+       <rect>
+        <x>365</x>
+        <y>242</y>
+        <width>298</width>
+        <height>165</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: transparent;</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="drink7">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>414</y>
+        <width>298</width>
+        <height>165</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: transparent;</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="drink3">
+      <property name="geometry">
+       <rect>
+        <x>670</x>
+        <y>70</y>
+        <width>298</width>
+        <height>165</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: transparent;</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="drink4">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>242</y>
+        <width>298</width>
+        <height>165</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: transparent;</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="drink2">
+      <property name="geometry">
+       <rect>
+        <x>365</x>
+        <y>70</y>
+        <width>298</width>
+        <height>165</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: transparent;</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
      <zorder>background</zorder>
      <zorder>chooseDrink</zorder>
-     <zorder>gridLayoutWidget</zorder>
+     <zorder>drink1</zorder>
+     <zorder>drink8</zorder>
+     <zorder>drink9</zorder>
+     <zorder>drink6</zorder>
+     <zorder>drink5</zorder>
+     <zorder>drink7</zorder>
+     <zorder>drink3</zorder>
+     <zorder>drink4</zorder>
+     <zorder>drink2</zorder>
     </widget>
     <widget class="QWidget" name="tabLoading">
      <widget class="QProgressBar" name="progress">
