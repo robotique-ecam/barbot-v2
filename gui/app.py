@@ -128,7 +128,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 pump = 6
             try:
                 self.serial.write(("P" + str(pump) + "-" + str(value) + ";").encode())
-            except serial.SerialException:
+            except AttributeError:
                 print("No serial detected")
 
     def loading(self, button):

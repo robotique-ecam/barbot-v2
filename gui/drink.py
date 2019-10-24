@@ -2,7 +2,6 @@
 
 from ui_drink import Ui_Dialog
 from PyQt5.QtWidgets import QDialog
-import serial
 
 
 class DrinkDialog(QDialog, Ui_Dialog):
@@ -45,19 +44,19 @@ class DrinkDialog(QDialog, Ui_Dialog):
     def pump_start(self):
         try:
             self.parent().serial.write(("F" + str(self.number_button(self.parent().name_clicked)) + ";").encode())
-        except serial.SerialException:
+        except AttributeError:
             print("No serial detected")
 
     def pump_stop(self):
         try:
             self.parent().serial.write("S;".encode())
-        except serial.SerialException:
+        except AttributeError:
             print("No serial detected")
 
     def purge_start(self):
         try:
             self.parent().serial.write(("R" + str(self.number_button(self.parent().name_clicked)) + ";").encode())
-        except serial.SerialException:
+        except AttributeError:
             print("No serial detected")
 
     def number_button(self, name):
