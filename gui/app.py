@@ -26,7 +26,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         """Init."""
         QMainWindow.__init__(self)
         Ui_MainWindow.__init__(self)
-        self.serial = serial.Serial(port='/dev/ttyACM0')
+        try:
+            self.serial = serial.Serial(port='/dev/ttyACM0')
+        except serial.SerialException:
+            print("No serial detected")
         self.password_dialog = PasswordDialog(self)
         self.drink_dialog = DrinkDialog(self)
         self.setupUi(self)
@@ -123,7 +126,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 pump = 5
             elif key == self.name6.text():
                 pump = 6
-            self.serial.write(("P" + str(pump) + "-" + str(value) + ";").encode())
+            try:
+                self.serial.write(("P" + str(pump) + "-" + str(value) + ";").encode())
+            except serial.SerialException:
+                print("No serial detected")
 
     def loading(self, button):
         """Progress bar function."""
