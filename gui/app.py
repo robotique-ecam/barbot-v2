@@ -26,7 +26,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         """Init."""
         QMainWindow.__init__(self)
         Ui_MainWindow.__init__(self)
-        # self.serial = serial.Serial(port='/dev/ttyACM0')
+        self.serial = serial.Serial(port='/dev/ttyACM0')
         self.password_dialog = PasswordDialog(self)
         self.drink_dialog = DrinkDialog(self)
         self.setupUi(self)
@@ -34,7 +34,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.button_clicked = self.picture1
         self.name_clicked = self.name1
         self.available_ingredients = []
-        self.available_cocktails = [["Vodka-Redbull", {"Vodka": 200, "Redbull": 200}, ""]]
+        self.available_cocktails = []
         self.cocktails = []
         self.ingredients = []
         self.night_mode = False
@@ -123,7 +123,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 pump = 5
             elif key == self.name6.text():
                 pump = 6
-            # self.serial.write(("P" + str(pump) + "-" + str(value) + ";").encode())
+            self.serial.write(("P" + str(pump) + "-" + str(value) + ";").encode())
 
     def loading(self, button):
         """Progress bar function."""
