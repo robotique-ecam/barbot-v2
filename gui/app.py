@@ -29,7 +29,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         try:
             self.serial = serial.Serial(port='/dev/ttyACM0')
         except serial.SerialException:
-            print("No serial detected")
+            print("Serial not found")
         self.password_dialog = PasswordDialog(self)
         self.drink_dialog = DrinkDialog(self)
         self.setupUi(self)
@@ -43,7 +43,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.night_mode = False
         self.create_drink_list()
         self.create_ingredients()
-        # self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
         self.settings.clicked.connect(self.open_password)
         self.drink1.clicked.connect(lambda: self.loading(self.drink1))
         self.drink2.clicked.connect(lambda: self.loading(self.drink2))
@@ -126,10 +125,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 pump = 5
             elif key == self.name6.text():
                 pump = 6
+            msg = ("P" + str(pump) + "-" + str(value) + ";").encode()
             try:
-                self.serial.write(("P" + str(pump) + "-" + str(value) + ";").encode())
+                self.serial.write(msg)
             except AttributeError:
-                print("No serial detected")
+                print("No serial. Sending: " + str(msg))
 
     def loading(self, button):
         """Progress bar function."""

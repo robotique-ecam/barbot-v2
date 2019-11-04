@@ -33,11 +33,11 @@ int dis, dir, pas;
 
 #define DirCarpet 00
 #define PasCarpet 000
-#define motorInterfaceType 00 */
+#define motorInterfaceType 00
 
 //AccelStepper stepper1 = AccelStepper(motorInterfaceType,PasCarpet,DirCarpet);
 
-int getPump(char num, int *dis, int *dir, int *pas) {
+void getPump(char num, int *dis, int *dir, int *pas) {
   switch(num) {
     case '1':
       *dis = DisablePompe1;
