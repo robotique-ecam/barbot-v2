@@ -41,25 +41,25 @@ class DrinkDialog(QDialog, Ui_Dialog):
         self.hide()
 
     def pump_start(self):
-        msg = ("F" + str(self.number_button(self.parent().name_clicked)) + ";").encode()
+        msg = "F" + str(self.number_button(self.parent().name_clicked)) + ";"
         try:
-            self.parent().serial.write(msg)
+            self.parent().serial.write(msg.encode())
         except AttributeError:
-            print("No serial. Sending: " + str(msg))
+            print("No serial. Sending: " + msg)
 
     def pump_stop(self):
-        msg = "S;".encode()
+        msg = "S;"
         try:
-            self.parent().serial.write(msg)
+            self.parent().serial.write(msg.encode())
         except AttributeError:
-            print("No serial. Sending: " + str(msg))
+            print("No serial. Sending: " + msg)
 
     def purge_start(self):
-        msg = ("R" + str(self.number_button(self.parent().name_clicked)) + ";").encode()
+        msg = "R" + str(self.number_button(self.parent().name_clicked)) + ";"
         try:
-            self.parent().serial.write(msg)
+            self.parent().serial.write(msg.encode())
         except AttributeError:
-            print("No serial. Sending: " + str(msg))
+            print("No serial. Sending: " + msg)
 
     def number_button(self, name):
         pump = 0

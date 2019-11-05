@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from PyQt5 import QtCore, QtGui, QtTest
+from PyQt5 import QtCore, QtTest
 from ui_main import Ui_MainWindow
 from password import PasswordDialog
 from drink import DrinkDialog
@@ -41,8 +41,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.cocktails = []
         self.ingredients = []
         self.night_mode = False
-        self.create_drink_list()
         self.create_ingredients()
+        self.create_drink_list()
         self.settings.clicked.connect(self.open_password)
         self.drink1.clicked.connect(lambda: self.loading(self.drink1))
         self.drink2.clicked.connect(lambda: self.loading(self.drink2))
@@ -78,6 +78,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         drink_list = [self.drink1, self.drink2, self.drink3, self.drink4, self.drink5, self.drink6, self.drink7, self.drink8, self.drink9]
         for drink in drink_list:
             drink.setStyleSheet("")
+            drink.setText("")
         if len(self.available_cocktails) < 1:
             self.drink1.setStyleSheet("background: transparent;")
         if len(self.available_cocktails) < 2:
@@ -100,9 +101,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         i = 0
         for drink in drinks_enabled:
             drink.setText(self.available_cocktails[i][0])
-            icon = QtGui.QIcon()
+            # icon = QtGui.QIcon()
             # icon.addPixmap(QtGui.QPixmap(":/Logo/test.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-            drink.setIcon(icon)
+            # drink.setIcon(icon)
             i += 1
 
     def send_ingredients(self, button):
@@ -125,11 +126,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 pump = 5
             elif key == self.name6.text():
                 pump = 6
-            msg = ("P" + str(pump) + "-" + str(value) + ";").encode()
+            msg = "P" + str(pump) + "-" + str(value) + ";"
             try:
-                self.serial.write(msg)
+                self.serial.write(msg.encode())
+                receive = ""
+                while receive != "Pump finished":
+                    receive = self.serial.readline().decode()
             except AttributeError:
-                print("No serial. Sending: " + str(msg))
+                print("No serial. Sending: " + msg)
+        try:
+            self.serial.write("Finished;".encode())
+        except AttributeError:
+            print("No serial. Sending: Finished;")
 
     def loading(self, button):
         """Progress bar function."""

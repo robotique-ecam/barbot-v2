@@ -3,6 +3,12 @@
 #include <String.h>
 
 char message[10];
+void readSerial() {
+  if(Serial.available()) {
+    memset(message, 0, sizeof(message)); // Clear buffer
+    Serial.readBytesUntil(';', message, 10);
+  }
+}
 
 void setup() {
   pinMode(DirPompe1, OUTPUT);
@@ -37,32 +43,22 @@ void setup() {
   Serial.begin(9600);
 }
 void loop() {
-  if(Serial.available()) {
-    memset(message, 0, sizeof(message)); // Clear buffer
-    Serial.readBytesUntil(';', message, 10);
-  }
+  readSerial();
 
   if (message[0]=='F') {
     //Serial.println("Enabling Pump " + message[1] + " forward...");
     while (message[0]!='S') {
-      if(Serial.available()) {
-        memset(message, 0, sizeof(message)); // Clear buffer
-        Serial.readBytesUntil(';', message, 10);
-      }
+      readSerial();
       ForceP(message[1]);
     }
     disablePump(message[1]);
     //Serial.println("Stopping Pump " + message[1] + ".");
   }
 
-
   if (message[0]=='R') {
     //Serial.println("Enabling Pump " + message[1] + " backwards...");
     while (message[0]!='S') {
-      if(Serial.available()) {
-        memset(message, 0, sizeof(message)); // Clear buffer
-        Serial.readBytesUntil(';', message, 10);
-      }
+      readSerial();
       ReverseP(message[1]);
     }
     disablePump(message[1]);
@@ -70,14 +66,15 @@ void loop() {
   }
 
   if (message[0]=='P') {
+    carpet(message[1]);
     Pompe(message);
     disablePump(message[1]);
+    Serial.println("Pump finished");
     //Serial.println("Stopping Pump " + message[1] + ".");
   }
 
-  if (message[0]=='M') {
-    //Carpet(message);
-    Serial.println("ok");
+  if (message[0]=='F') {
+    carpet(message[1]);
   }
 
   if (message[0]=='G') {

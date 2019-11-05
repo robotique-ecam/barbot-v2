@@ -119,6 +119,49 @@ void gobelet() {
   delay(1000);
 }
 
+int currentPos = 0;
+void carpet(char num) {
+  if(num == 'i') {
+    switch(currentPos) {
+      case 1:
+        //Move from 1 to end
+        break;
+      case 2:
+        //Move from 2 to end
+        break;
+    }
+    currentPos = 0;
+  }
+  else if(num == '1' || num == '2' || num == '3') {
+    switch(currentPos) {
+      case 0:
+        //Move from start to 1
+        break;
+      case 1:
+        //Not move
+        break;
+      case 2:
+        //Move from 2 to 1
+        break;
+    }
+    currentPos = 1;
+  }
+  else if(num == '4' || num == '5' || num == '6') {
+    switch(currentPos) {
+      case 0:
+        //Move from start to 2
+        break;
+      case 1:
+        //Move from 1 to 2
+        break;
+      case 2:
+        //Not move
+        break;
+    }
+    currentPos = 2;
+  }
+}
+
 /*
 void Carpet(String message) {
   int step=0;
