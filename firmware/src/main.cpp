@@ -73,7 +73,7 @@ void loop() {
     //Serial.println("Stopping Pump " + message[1] + ".");
   }
 
-  if (message[0]=='F') {
+  if (message[0]=='E') {
     carpet(message[1]);
   }
 

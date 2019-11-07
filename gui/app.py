@@ -135,9 +135,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             except AttributeError:
                 print("No serial. Sending: " + msg)
         try:
-            self.serial.write("Finished;".encode())
+            self.serial.write("End;".encode())
         except AttributeError:
-            print("No serial. Sending: Finished;")
+            print("No serial. Sending: End;")
 
     def loading(self, button):
         """Progress bar function."""

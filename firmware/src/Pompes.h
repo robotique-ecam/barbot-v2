@@ -121,13 +121,19 @@ void gobelet() {
 
 int currentPos = 0;
 void carpet(char num) {
-  if(num == 'i') {
+  if(num == 'n') {
     switch(currentPos) {
       case 1:
         //Move from 1 to end
+        for (int i=0;i<1000;i++) {
+          ForceP('4');
+        }
         break;
       case 2:
         //Move from 2 to end
+        for (int i=0;i<500;i++) {
+          ForceP('4');
+        }
         break;
     }
     currentPos = 0;
@@ -136,12 +142,18 @@ void carpet(char num) {
     switch(currentPos) {
       case 0:
         //Move from start to 1
+        for (int i=0;i<500;i++) {
+          ForceP('4');
+        }
         break;
       case 1:
         //Not move
         break;
       case 2:
         //Move from 2 to 1
+        for (int i=0;i<500;i++) {
+          ReverseP('4');
+        }
         break;
     }
     currentPos = 1;
@@ -150,9 +162,15 @@ void carpet(char num) {
     switch(currentPos) {
       case 0:
         //Move from start to 2
+        for (int i=0;i<1000;i++) {
+          ForceP('4');
+        }
         break;
       case 1:
         //Move from 1 to 2
+        for (int i=0;i<500;i++) {
+          ForceP('4');
+        }
         break;
       case 2:
         //Not move
@@ -160,6 +178,7 @@ void carpet(char num) {
     }
     currentPos = 2;
   }
+  Serial.println(currentPos);
 }
 
 /*
