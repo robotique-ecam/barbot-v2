@@ -157,8 +157,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def loading(self, button):
         """Progress bar function."""
         if button.styleSheet() == "":
-            self.send_ingredients(button)
             self.tabWidget.setCurrentIndex(1)
+            self.send_ingredients(button)
             self.__step = 0
             self.timer = QtCore.QBasicTimer()
             self.timer.start(100, self)

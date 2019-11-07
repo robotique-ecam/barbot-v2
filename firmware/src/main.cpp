@@ -76,6 +76,7 @@ void loop() {
 
   if (message[0]=='E') {
     carpet(message[1]);
+    disablePump('4');
   }
 
   if (message[0]=='G') {
