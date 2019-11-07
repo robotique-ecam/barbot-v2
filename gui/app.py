@@ -143,9 +143,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             try:
                 self.serial.write(msg.encode())
                 receive = ""
-                while receive != "OK;":
-                    receive = self.serial.read_until(b'\r\n').decode('ascii')
-                    logger.warning(receive)
+                while receive != "OK":
+                    receive = self.serial.read_until(b'\r\n').decode('ascii').strip('\r\n')
+                    logger.warning(str(receive.encode()))
+                logger.warning('Out of loop')
             except AttributeError:
                 print("No serial. Sending: " + msg)
         try:
