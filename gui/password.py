@@ -10,7 +10,6 @@ class PasswordDialog(QDialog, Ui_Dialog):
         QDialog.__init__(self, parent)
         Ui_Dialog.__init__(self)
         self.setupUi(self)
-        # self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
         self.b0.clicked.connect(lambda: self.writing_password(self.b0))
         self.b1.clicked.connect(lambda: self.writing_password(self.b1))
         self.b2.clicked.connect(lambda: self.writing_password(self.b2))

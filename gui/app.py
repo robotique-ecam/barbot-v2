@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from PyQt5 import QtCore, QtGui, QtTest
+from PyQt5 import QtCore, QtTest
 from ui_main import Ui_MainWindow
 from password import PasswordDialog
 from drink import DrinkDialog
@@ -26,7 +26,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         """Init."""
         QMainWindow.__init__(self)
         Ui_MainWindow.__init__(self)
-        self.serial = serial.Serial(port='/dev/ttyACM0')
+        try:
+            self.serial = serial.Serial(port='/dev/ttyACM0')
+        except serial.SerialException:
+            print("Serial not found")
         self.password_dialog = PasswordDialog(self)
         self.drink_dialog = DrinkDialog(self)
         self.setupUi(self)
@@ -38,9 +41,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.cocktails = []
         self.ingredients = []
         self.night_mode = False
-        self.create_drink_list()
         self.create_ingredients()
-        # self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+        self.create_drink_list()
         self.settings.clicked.connect(self.open_password)
         self.drink1.clicked.connect(lambda: self.loading(self.drink1))
         self.drink2.clicked.connect(lambda: self.loading(self.drink2))
@@ -76,6 +78,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         drink_list = [self.drink1, self.drink2, self.drink3, self.drink4, self.drink5, self.drink6, self.drink7, self.drink8, self.drink9]
         for drink in drink_list:
             drink.setStyleSheet("")
+            drink.setText("")
         if len(self.available_cocktails) < 1:
             self.drink1.setStyleSheet("background: transparent;")
         if len(self.available_cocktails) < 2:
@@ -98,9 +101,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         i = 0
         for drink in drinks_enabled:
             drink.setText(self.available_cocktails[i][0])
-            icon = QtGui.QIcon()
+            # icon = QtGui.QIcon()
             # icon.addPixmap(QtGui.QPixmap(":/Logo/test.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-            drink.setIcon(icon)
+            # drink.setIcon(icon)
             i += 1
 
     def send_ingredients(self, button):
@@ -123,7 +126,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 pump = 5
             elif key == self.name6.text():
                 pump = 6
-            self.serial.write(("P" + str(pump) + "-" + str(value) + ";").encode())
+            msg = "P" + str(pump) + "-" + str(value) + ";"
+            try:
+                self.serial.write(msg.encode())
+                receive = ""
+                while receive != "Pump finished":
+                    receive = self.serial.readline().decode()
+            except AttributeError:
+                print("No serial. Sending: " + msg)
+        try:
+            self.serial.write("End;".encode())
+        except AttributeError:
+            print("No serial. Sending: End;")
 
     def loading(self, button):
         """Progress bar function."""

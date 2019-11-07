@@ -9,7 +9,6 @@ class DrinkDialog(QDialog, Ui_Dialog):
         QDialog.__init__(self, parent)
         Ui_Dialog.__init__(self)
         self.setupUi(self)
-        # self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
         self.ok.clicked.connect(self.update_drinks)
         self.pump.pressed.connect(self.pump_start)
         self.pump.released.connect(self.pump_stop)
@@ -42,13 +41,25 @@ class DrinkDialog(QDialog, Ui_Dialog):
         self.hide()
 
     def pump_start(self):
-        self.parent().serial.write(("F" + str(self.number_button(self.parent().name_clicked)) + ";").encode())
+        msg = "F" + str(self.number_button(self.parent().name_clicked)) + ";"
+        try:
+            self.parent().serial.write(msg.encode())
+        except AttributeError:
+            print("No serial. Sending: " + msg)
 
     def pump_stop(self):
-        self.parent().serial.write("S;".encode())
+        msg = "S;"
+        try:
+            self.parent().serial.write(msg.encode())
+        except AttributeError:
+            print("No serial. Sending: " + msg)
 
     def purge_start(self):
-        self.parent().serial.write(("R" + str(self.number_button(self.parent().name_clicked)) + ";").encode())
+        msg = "R" + str(self.number_button(self.parent().name_clicked)) + ";"
+        try:
+            self.parent().serial.write(msg.encode())
+        except AttributeError:
+            print("No serial. Sending: " + msg)
 
     def number_button(self, name):
         pump = 0

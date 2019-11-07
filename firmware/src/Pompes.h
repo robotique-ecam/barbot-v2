@@ -33,11 +33,11 @@ int dis, dir, pas;
 
 #define DirCarpet 00
 #define PasCarpet 000
-#define motorInterfaceType 00 */
+#define motorInterfaceType 00
 
 //AccelStepper stepper1 = AccelStepper(motorInterfaceType,PasCarpet,DirCarpet);
 
-int getPump(char num, int *dis, int *dir, int *pas) {
+void getPump(char num, int *dis, int *dir, int *pas) {
   switch(num) {
     case '1':
       *dis = DisablePompe1;
@@ -117,6 +117,68 @@ void gobelet() {
   delay(2000);
   digitalWrite(PompeDis, LOW);
   delay(1000);
+}
+
+int currentPos = 0;
+void carpet(char num) {
+  if(num == 'n') {
+    switch(currentPos) {
+      case 1:
+        //Move from 1 to end
+        for (int i=0;i<1000;i++) {
+          ForceP('4');
+        }
+        break;
+      case 2:
+        //Move from 2 to end
+        for (int i=0;i<500;i++) {
+          ForceP('4');
+        }
+        break;
+    }
+    currentPos = 0;
+  }
+  else if(num == '1' || num == '2' || num == '3') {
+    switch(currentPos) {
+      case 0:
+        //Move from start to 1
+        for (int i=0;i<500;i++) {
+          ForceP('4');
+        }
+        break;
+      case 1:
+        //Not move
+        break;
+      case 2:
+        //Move from 2 to 1
+        for (int i=0;i<500;i++) {
+          ReverseP('4');
+        }
+        break;
+    }
+    currentPos = 1;
+  }
+  else if(num == '4' || num == '5' || num == '6') {
+    switch(currentPos) {
+      case 0:
+        //Move from start to 2
+        for (int i=0;i<1000;i++) {
+          ForceP('4');
+        }
+        break;
+      case 1:
+        //Move from 1 to 2
+        for (int i=0;i<500;i++) {
+          ForceP('4');
+        }
+        break;
+      case 2:
+        //Not move
+        break;
+    }
+    currentPos = 2;
+  }
+  Serial.println(currentPos);
 }
 
 /*
