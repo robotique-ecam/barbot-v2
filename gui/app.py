@@ -130,8 +130,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             try:
                 self.serial.write(msg.encode())
                 receive = ""
-                while receive != "Pump finished":
-                    receive = self.serial.readline().decode()
+                while receive != "OK\n":
+                    receive = self.serial.readline().decode('ascii')
+                    print(receive)
             except AttributeError:
                 print("No serial. Sending: " + msg)
         try:

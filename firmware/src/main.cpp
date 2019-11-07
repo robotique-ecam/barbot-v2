@@ -69,7 +69,7 @@ void loop() {
     carpet(message[1]);
     Pompe(message);
     disablePump(message[1]);
-    Serial.println("Pump finished");
+    Serial.println("OK");
     //Serial.println("Stopping Pump " + message[1] + ".");
   }
 
