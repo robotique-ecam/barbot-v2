@@ -10,6 +10,19 @@ import messages
 import sys
 import random
 import serial
+import logging
+from logging.handlers import RotatingFileHandler
+
+logger = logging.getLogger()
+logger.setLevel(logging.DEBUG)
+formatter = logging.Formatter('%(asctime)s :: %(levelname)s :: %(message)s')
+file_handler = RotatingFileHandler('activity.log', 'a', 1000000, 1)
+file_handler.setLevel(logging.DEBUG)
+file_handler.setFormatter(formatter)
+logger.addHandler(file_handler)
+stream_handler = logging.StreamHandler()
+stream_handler.setLevel(logging.DEBUG)
+logger.addHandler(stream_handler)
 
 if hasattr(QtCore.Qt, 'AA_EnableHighDpiScaling'):
     QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True)
@@ -129,10 +142,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             msg = "P" + str(pump) + "-" + str(value) + ";"
             try:
                 self.serial.write(msg.encode())
-                receive = ""
-                while receive != "OK\n":
-                    receive = self.serial.readline().decode('ascii')
-                    print(receive)
+                #   receive = ""
+                while True:
+                    # receive = self.serial.readline().decode('ascii')
+                    logger.warning(self.serial.read())
             except AttributeError:
                 print("No serial. Sending: " + msg)
         try:

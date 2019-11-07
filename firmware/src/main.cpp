@@ -67,6 +67,7 @@ void loop() {
 
   if (message[0]=='P') {
     carpet(message[1]);
+    disablePump('4');
     Pompe(message);
     disablePump(message[1]);
     Serial.println("OK");
