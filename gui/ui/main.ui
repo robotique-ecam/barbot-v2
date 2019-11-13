@@ -150,7 +150,7 @@ p, li { white-space: pre-wrap; }
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background: transparent;</string>
+       <string notr="true"/>
       </property>
       <property name="text">
        <string/>
@@ -166,7 +166,7 @@ p, li { white-space: pre-wrap; }
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background: transparent;</string>
+       <string notr="true"/>
       </property>
       <property name="text">
        <string/>
@@ -182,7 +182,7 @@ p, li { white-space: pre-wrap; }
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background: transparent;</string>
+       <string notr="true"/>
       </property>
       <property name="text">
        <string/>
@@ -198,7 +198,7 @@ p, li { white-space: pre-wrap; }
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background: transparent;</string>
+       <string notr="true"/>
       </property>
       <property name="text">
        <string/>
@@ -214,7 +214,7 @@ p, li { white-space: pre-wrap; }
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background: transparent;</string>
+       <string notr="true"/>
       </property>
       <property name="text">
        <string/>
@@ -230,7 +230,7 @@ p, li { white-space: pre-wrap; }
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background: transparent;</string>
+       <string notr="true"/>
       </property>
       <property name="text">
        <string/>
@@ -246,7 +246,7 @@ p, li { white-space: pre-wrap; }
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background: transparent;</string>
+       <string notr="true"/>
       </property>
       <property name="text">
        <string/>
@@ -262,7 +262,7 @@ p, li { white-space: pre-wrap; }
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background: transparent;</string>
+       <string notr="true"/>
       </property>
       <property name="text">
        <string/>
@@ -278,7 +278,7 @@ p, li { white-space: pre-wrap; }
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background: transparent;</string>
+       <string notr="true"/>
       </property>
       <property name="text">
        <string/>

@@ -46,23 +46,19 @@ void loop() {
   readSerial();
 
   if (message[0]=='F') {
-    //Serial.println("Enabling Pump " + message[1] + " forward...");
     while (message[0]!='S') {
       readSerial();
       ForceP(message[1]);
     }
     disablePump(message[1]);
-    //Serial.println("Stopping Pump " + message[1] + ".");
   }
 
   if (message[0]=='R') {
-    //Serial.println("Enabling Pump " + message[1] + " backwards...");
     while (message[0]!='S') {
       readSerial();
       ReverseP(message[1]);
     }
     disablePump(message[1]);
-    //Serial.println("Stopping Pump " + message[1] + ".");
   }
 
   if (message[0]=='P') {
@@ -71,7 +67,6 @@ void loop() {
     Pompe(message);
     disablePump(message[1]);
     Serial.println("OK");
-    //Serial.println("Stopping Pump " + message[1] + ".");
   }
 
   if (message[0]=='E') {

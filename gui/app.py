@@ -10,19 +10,7 @@ import messages
 import sys
 import random
 import serial
-import logging
-from logging.handlers import RotatingFileHandler
 
-logger = logging.getLogger()
-logger.setLevel(logging.DEBUG)
-formatter = logging.Formatter('%(asctime)s :: %(levelname)s :: %(message)s')
-file_handler = RotatingFileHandler('activity.log', 'a', 1000000, 1)
-file_handler.setLevel(logging.DEBUG)
-file_handler.setFormatter(formatter)
-logger.addHandler(file_handler)
-stream_handler = logging.StreamHandler()
-stream_handler.setLevel(logging.DEBUG)
-logger.addHandler(stream_handler)
 
 if hasattr(QtCore.Qt, 'AA_EnableHighDpiScaling'):
     QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True)
@@ -90,27 +78,27 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def create_drink_list(self):
         drink_list = [self.drink1, self.drink2, self.drink3, self.drink4, self.drink5, self.drink6, self.drink7, self.drink8, self.drink9]
         for drink in drink_list:
-            drink.setStyleSheet("")
+            drink.raise_()
             drink.setText("")
         if len(self.available_cocktails) < 1:
-            self.drink1.setStyleSheet("background: transparent;")
+            self.drink1.lower()
         if len(self.available_cocktails) < 2:
-            self.drink2.setStyleSheet("background: transparent;")
+            self.drink2.lower()
         if len(self.available_cocktails) < 3:
-            self.drink3.setStyleSheet("background: transparent;")
+            self.drink3.lower()
         if len(self.available_cocktails) < 4:
-            self.drink4.setStyleSheet("background: transparent;")
+            self.drink4.lower()
         if len(self.available_cocktails) < 5:
-            self.drink5.setStyleSheet("background: transparent;")
+            self.drink5.lower()
         if len(self.available_cocktails) < 6:
-            self.drink6.setStyleSheet("background: transparent;")
+            self.drink6.lower()
         if len(self.available_cocktails) < 7:
-            self.drink7.setStyleSheet("background: transparent;")
+            self.drink7.lower()
         if len(self.available_cocktails) < 8:
-            self.drink8.setStyleSheet("background: transparent;")
+            self.drink8.lower()
         if len(self.available_cocktails) < 9:
-            self.drink9.setStyleSheet("background: transparent;")
-        drinks_enabled = [drink for drink in drink_list if drink.styleSheet() == ""]
+            self.drink9.lower()
+        drinks_enabled = [drink_list[i] for i in range(len(self.available_cocktails))]
         i = 0
         for drink in drinks_enabled:
             drink.setText(self.available_cocktails[i][0])
@@ -145,8 +133,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 receive = ""
                 while receive != "OK":
                     receive = self.serial.read_until(b'\r\n').decode('ascii').strip('\r\n')
-                    logger.warning(str(receive.encode()))
-                logger.warning('Out of loop')
             except AttributeError:
                 print("No serial. Sending: " + msg)
         try:
