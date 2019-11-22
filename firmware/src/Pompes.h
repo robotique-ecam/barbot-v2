@@ -24,16 +24,16 @@ int dis, dir, pas;
 #define PasPompe5 39
 #define DisablePompe5 12
 
-#define DirPompe6 40
-#define PasPompe6 41
+#define DirPompe6 48
+#define PasPompe6 49
 #define DisablePompe6 13
+
+#define DirCarpet 50
+#define PasCarpet 51
+#define DisableCarpet 7
 
 #define PompeDis 2
 #define Distrib 3
-
-#define DirCarpet 00
-#define PasCarpet 000
-#define motorInterfaceType 00
 
 //AccelStepper stepper1 = AccelStepper(motorInterfaceType,PasCarpet,DirCarpet);
 
@@ -69,6 +69,11 @@ void getPump(char num, int *dis, int *dir, int *pas) {
       *dir = DirPompe6;
       *pas = PasPompe6;
       break;
+    case 'C':
+      *dis = DisableCarpet;
+      *dir = DirCarpet;
+      *pas = PasCarpet;
+      break;
   }
 }
 
@@ -101,7 +106,7 @@ void Pompe(char* message) {
   long ml = 0;
   ml = atoi(message + 3);
   char n = message[1];
-  long step=ml*50;
+  long step=ml*10;
   //Serial.println("Enabling Pump " + message[1] + " for " + step + "ml...");
   for (int i=0;i<step;i++) {
     ForceP(n);
@@ -125,14 +130,14 @@ void carpet(char num) {
     switch(currentPos) {
       case 1:
         //Move from 1 to end
-        for (int i=0;i<1000;i++) {
-          ForceP('4');
+        for (int i=0;i<5000;i++) {
+          ForceP('C');
         }
         break;
       case 2:
         //Move from 2 to end
-        for (int i=0;i<500;i++) {
-          ForceP('4');
+        for (int i=0;i<2500;i++) {
+          ForceP('C');
         }
         break;
     }
@@ -142,8 +147,8 @@ void carpet(char num) {
     switch(currentPos) {
       case 0:
         //Move from start to 1
-        for (int i=0;i<500;i++) {
-          ForceP('4');
+        for (int i=0;i<2500;i++) {
+          ForceP('C');
         }
         break;
       case 1:
@@ -151,8 +156,8 @@ void carpet(char num) {
         break;
       case 2:
         //Move from 2 to 1
-        for (int i=0;i<500;i++) {
-          ReverseP('4');
+        for (int i=0;i<2500;i++) {
+          ReverseP('C');
         }
         break;
     }
@@ -162,14 +167,14 @@ void carpet(char num) {
     switch(currentPos) {
       case 0:
         //Move from start to 2
-        for (int i=0;i<1000;i++) {
-          ForceP('4');
+        for (int i=0;i<5000;i++) {
+          ForceP('C');
         }
         break;
       case 1:
         //Move from 1 to 2
-        for (int i=0;i<500;i++) {
-          ForceP('4');
+        for (int i=0;i<2500;i++) {
+          ForceP('C');
         }
         break;
       case 2:
@@ -178,7 +183,6 @@ void carpet(char num) {
     }
     currentPos = 2;
   }
-  Serial.println(currentPos);
 }
 
 /*

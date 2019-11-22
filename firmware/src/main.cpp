@@ -31,12 +31,14 @@ void setup() {
   pinMode(DisablePompe4, OUTPUT);
   pinMode(DisablePompe5, OUTPUT);
   pinMode(DisablePompe6, OUTPUT);
-  digitalWrite(DisablePompe1,HIGH);
-  digitalWrite(DisablePompe2,HIGH);
-  digitalWrite(DisablePompe3,HIGH);
-  digitalWrite(DisablePompe4,HIGH);
-  digitalWrite(DisablePompe5,HIGH);
-  digitalWrite(DisablePompe6,HIGH);
+  pinMode(DisableCarpet, OUTPUT);
+  digitalWrite(DisablePompe1, HIGH);
+  digitalWrite(DisablePompe2, HIGH);
+  digitalWrite(DisablePompe3, HIGH);
+  digitalWrite(DisablePompe4, HIGH);
+  digitalWrite(DisablePompe5, HIGH);
+  digitalWrite(DisablePompe6, HIGH);
+  digitalWrite(DisableCarpet, HIGH);
   digitalWrite(PompeDis,LOW);
   digitalWrite(Distrib,LOW);
 
@@ -63,7 +65,7 @@ void loop() {
 
   if (message[0]=='P') {
     carpet(message[1]);
-    disablePump('4');
+    disablePump('C');
     Pompe(message);
     disablePump(message[1]);
     Serial.println("OK");
@@ -71,7 +73,7 @@ void loop() {
 
   if (message[0]=='E') {
     carpet(message[1]);
-    disablePump('4');
+    disablePump('C');
   }
 
   if (message[0]=='G') {

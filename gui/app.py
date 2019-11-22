@@ -37,8 +37,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.tabWidget.setCurrentIndex(0)
         self.button_clicked = self.picture1
         self.name_clicked = self.name1
+        self.prev_step = 0
         self.available_ingredients = []
-        self.available_cocktails = []
+        self.available_cocktails = [["Eau", {"Eau": 200}, ""], ["Vodka-Redbull", {"Vodka": 200, "Redbull": 200}, ""]]
         self.cocktails = []
         self.ingredients = []
         self.night_mode = False
@@ -62,6 +63,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.picture6.clicked.connect(lambda: self.open_drink(self.picture6))
         self.menuButton.clicked.connect(lambda: self.tabWidget.setCurrentIndex(0))
         self.new_drink.clicked.connect(lambda: self.tabWidget.setCurrentIndex(0))
+        self.carpet_left.pressed.connect(self.carpet_left_start)
+        self.carpet_left.released.connect(self.carpet_stop)
+        self.carpet_right.pressed.connect(self.carpet_right_start)
+        self.carpet_right.released.connect(self.carpet_stop)
 
     def create_ingredients(self):
         if self.night_mode:
@@ -113,6 +118,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if drink[0] == button.text():
                 ing_dict = drink[1]
                 break
+        self.num_ingredients = 2*len(ing_dict) + 1
         for key, value in ing_dict.items():
             pump = 0
             if key == self.name1.text():
@@ -142,25 +148,24 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def loading(self, button):
         """Progress bar function."""
-        if button.styleSheet() == "":
-            self.tabWidget.setCurrentIndex(1)
-            self.send_ingredients(button)
-            self.__step = 0
-            self.timer = QtCore.QBasicTimer()
-            self.timer.start(100, self)
-            random.shuffle(messages.messages)
-            for i in range(0, 100):
+        self.tabWidget.setCurrentIndex(1)
+        self.send_ingredients(button)
+        self.__step = 0
+        self.timer = QtCore.QBasicTimer()
+        self.timer.start(10, self)
+        random.shuffle(messages.messages)
+        """for i in range(0, 100):
+            if not self.timer.isActive():
+                break
+            for j in range(0, 5):
                 if not self.timer.isActive():
                     break
-                for j in range(0, 5):
-                    if not self.timer.isActive():
-                        break
-                    self.preparing.setText(messages.messages[i % len(messages.messages)] + " .")
-                    QtTest.QTest.qWait(500)
-                    self.preparing.setText(messages.messages[i % len(messages.messages)] + " ..")
-                    QtTest.QTest.qWait(500)
-                    self.preparing.setText(messages.messages[i % len(messages.messages)] + " ...")
-                    QtTest.QTest.qWait(500)
+                self.preparing.setText(messages.messages[i % len(messages.messages)] + " .")
+                QtTest.QTest.qWait(500)
+                self.preparing.setText(messages.messages[i % len(messages.messages)] + " ..")
+                QtTest.QTest.qWait(500)
+                self.preparing.setText(messages.messages[i % len(messages.messages)] + " ...")
+                QtTest.QTest.qWait(500)"""
 
     def open_password(self):
         self.password_dialog.setModal(True)
@@ -169,18 +174,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def open_drink(self, button):
         self.drink_dialog.list.clear()
         self.drink_dialog.list.insertItems(1, [' '] + self.ingredients)
+        self.drink_dialog.list.setCurrentText(self.name_clicked.text())
         self.button_clicked = button
         if button == self.picture1:
             self.name_clicked = self.name1
-        if button == self.picture2:
+        elif button == self.picture2:
             self.name_clicked = self.name2
-        if button == self.picture3:
+        elif button == self.picture3:
             self.name_clicked = self.name3
-        if button == self.picture4:
+        elif button == self.picture4:
             self.name_clicked = self.name4
-        if button == self.picture5:
+        elif button == self.picture5:
             self.name_clicked = self.name5
-        if button == self.picture6:
+        elif button == self.picture6:
             self.name_clicked = self.name6
         self.drink_dialog.picture.setStyleSheet(self.button_clicked.styleSheet())
         self.drink_dialog.name.setText(self.name_clicked.text())
@@ -189,18 +195,43 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def timerEvent(self, e):
         """Increases step everytime it is called by timer."""
-        if self.__step >= 100:
+        if self.__step == 100:
             self.timer.stop()
             self.tabWidget.setCurrentIndex(2)
             return
-        self.__step = self.__step + 1
+        elif (self.prev_step >= self.__step % (100 / self.num_ingredients)) and self.__step != 0:
+            QtTest.QTest.qWait(1000)
+            """try:
+                self.timer.stop()
+                receive = ""
+                while receive != "OK":
+                    receive = self.serial.read_until(b'\r\n').decode('ascii').strip('\r\n')
+            except AttributeError:
+                print("No serial.")"""
+        self.prev_step = self.__step % (100 / self.num_ingredients)
+        self.__step += 1
         self.progress.setValue(self.__step)
 
-    """def doAction(self):
-        if self.timer.isActive():
-            self.timer.stop()
-        else:
-            self.timer.start(100, self)"""
+    def carpet_left_start(self):
+        msg = "RC;"
+        try:
+            self.serial.write(msg.encode())
+        except AttributeError:
+            print("No serial. Sending: " + msg)
+
+    def carpet_right_start(self):
+        msg = "FC;"
+        try:
+            self.serial.write(msg.encode())
+        except AttributeError:
+            print("No serial. Sending: " + msg)
+
+    def carpet_stop(self):
+        msg = "S;"
+        try:
+            self.serial.write(msg.encode())
+        except AttributeError:
+            print("No serial. Sending: " + msg)
 
 
 if __name__ == "__main__":

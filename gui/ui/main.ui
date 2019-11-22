@@ -72,7 +72,7 @@
      <enum>Qt::ActionsContextMenu</enum>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="tabMenu">
      <widget class="QTextEdit" name="chooseDrink">
@@ -1011,6 +1011,52 @@ p, li { white-space: pre-wrap; }
       </property>
       <property name="text">
        <string>Menu</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="carpet_left">
+      <property name="geometry">
+       <rect>
+        <x>345</x>
+        <y>370</y>
+        <width>161</width>
+        <height>151</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset resource="../images/resources.qrc">
+        <normaloff>:/Logo/arrow_left.png</normaloff>:/Logo/arrow_left.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>150</width>
+        <height>150</height>
+       </size>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="carpet_right">
+      <property name="geometry">
+       <rect>
+        <x>518</x>
+        <y>370</y>
+        <width>161</width>
+        <height>151</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset resource="../images/resources.qrc">
+        <normaloff>:/Logo/arrow_right.png</normaloff>:/Logo/arrow_right.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>150</width>
+        <height>150</height>
+       </size>
       </property>
      </widget>
     </widget>
