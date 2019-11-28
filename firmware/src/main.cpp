@@ -40,7 +40,7 @@ void setup() {
   digitalWrite(DisablePompe6, HIGH);
   digitalWrite(DisableCarpet, HIGH);
   digitalWrite(PompeDis,LOW);
-  digitalWrite(Distrib,LOW);
+  digitalWrite(Distrib,HIGH);
 
   Serial.begin(9600);
 }
@@ -66,6 +66,7 @@ void loop() {
   if (message[0]=='P') {
     carpet(message[1]);
     disablePump('C');
+    Serial.println("OK");
     Pompe(message);
     disablePump(message[1]);
     Serial.println("OK");
@@ -78,7 +79,6 @@ void loop() {
 
   if (message[0]=='G') {
     gobelet();
-    Serial.println("ok");
   }
 
   message[0] = 0;

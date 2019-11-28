@@ -114,14 +114,13 @@ void Pompe(char* message) {
 }
 
 void gobelet() {
+  delay(1500);
   digitalWrite(PompeDis, HIGH);
-  delay(2000);
-  digitalWrite(Distrib, HIGH);
-  delay(2000);
   digitalWrite(Distrib, LOW);
-  delay(2000);
-  digitalWrite(PompeDis, LOW);
+  delay(3000);
+  digitalWrite(Distrib, HIGH);
   delay(1000);
+  digitalWrite(PompeDis, LOW);
 }
 
 int currentPos = 0;

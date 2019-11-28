@@ -63,10 +63,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.picture6.clicked.connect(lambda: self.open_drink(self.picture6))
         self.menuButton.clicked.connect(lambda: self.tabWidget.setCurrentIndex(0))
         self.new_drink.clicked.connect(lambda: self.tabWidget.setCurrentIndex(0))
-        self.carpet_left.pressed.connect(self.carpet_left_start)
-        self.carpet_left.released.connect(self.carpet_stop)
-        self.carpet_right.pressed.connect(self.carpet_right_start)
-        self.carpet_right.released.connect(self.carpet_stop)
+        self.carpet_left.pressed.connect(self.drink_dialog.carpet_left_start)
+        self.carpet_left.released.connect(self.drink_dialog.carpet_stop)
+        self.carpet_right.pressed.connect(self.drink_dialog.carpet_right_start)
+        self.carpet_right.released.connect(self.drink_dialog.carpet_stop)
 
     def create_ingredients(self):
         if self.night_mode:
@@ -119,6 +119,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 ing_dict = drink[1]
                 break
         self.num_ingredients = 2*len(ing_dict) + 1
+        try:
+            self.serial.write("G;".encode())
+            receive = ""
+            while receive != "OK":
+                receive = self.serial.read_until(b'\r\n').decode('ascii').strip('\r\n')
+        except AttributeError:
+            print("No serial. Sending: G;")
         for key, value in ing_dict.items():
             pump = 0
             if key == self.name1.text():
@@ -149,11 +156,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def loading(self, button):
         """Progress bar function."""
         self.tabWidget.setCurrentIndex(1)
-        self.send_ingredients(button)
         self.__step = 0
         self.timer = QtCore.QBasicTimer()
         self.timer.start(10, self)
         random.shuffle(messages.messages)
+        self.send_ingredients(button)
         """for i in range(0, 100):
             if not self.timer.isActive():
                 break
@@ -199,39 +206,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.timer.stop()
             self.tabWidget.setCurrentIndex(2)
             return
-        elif (self.prev_step >= self.__step % (100 / self.num_ingredients)) and self.__step != 0:
-            QtTest.QTest.qWait(1000)
-            """try:
-                self.timer.stop()
+        elif self.prev_step >= self.__step % (100 / self.num_ingredients) and self.__step != 0:
+            self.timer.stop()
+            try:
                 receive = ""
                 while receive != "OK":
                     receive = self.serial.read_until(b'\r\n').decode('ascii').strip('\r\n')
             except AttributeError:
-                print("No serial.")"""
+                print("No serial. Waiting 500ms ({0}%)".format(self.__step))
+                QtTest.QTest.qWait(500)
+            self.timer.start(10, self)
+
         self.prev_step = self.__step % (100 / self.num_ingredients)
         self.__step += 1
         self.progress.setValue(self.__step)
-
-    def carpet_left_start(self):
-        msg = "RC;"
-        try:
-            self.serial.write(msg.encode())
-        except AttributeError:
-            print("No serial. Sending: " + msg)
-
-    def carpet_right_start(self):
-        msg = "FC;"
-        try:
-            self.serial.write(msg.encode())
-        except AttributeError:
-            print("No serial. Sending: " + msg)
-
-    def carpet_stop(self):
-        msg = "S;"
-        try:
-            self.serial.write(msg.encode())
-        except AttributeError:
-            print("No serial. Sending: " + msg)
 
 
 if __name__ == "__main__":
