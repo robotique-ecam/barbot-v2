@@ -27,7 +27,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         """Init."""
         QMainWindow.__init__(self)
         Ui_MainWindow.__init__(self)
-        self.serial = QtSerialPort.QSerialPort('/dev/ttyACM0', readyRead=self.receive())
+        self.serial = QtSerialPort.QSerialPort('/dev/ttyACM0', readyRead=self.receive)
         self.serial.open(QIODevice.OpenModeFlag.ReadWrite)
         self.password_dialog = PasswordDialog(self)
         self.drink_dialog = DrinkDialog(self)
@@ -37,7 +37,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.name_clicked = self.name1
         self.prev_step = 0
         self.available_ingredients = []
-        self.available_cocktails = [["Eau", {"Eau": 200}, ""], ["Vodka-Redbull", {"Vodka": 200, "Redbull": 200}, ""]]
+        self.available_cocktails = ["""["Eau", {"Eau": 200}, ""], ["Vodka-Redbull", {"Vodka": 200, "Redbull": 200}, ""]"""]
         self.cocktails = []
         self.ingredients = []
         self.night_mode = False
@@ -80,14 +80,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         while self.serial.canReadLine():
             text = self.serial.readLine().data().decode('ascii').strip('\r\n')
             print(text)
-            pump = self.getPump(self.ing_dict)
             if text == "Gobelet OK":
+                pump = self.getPump(self.ing_dict)
                 # self.gif_gobelet.stop()
                 self.gif_conveyor.start()
                 self.preparing.setText("Moving carpet to position " + str(pump))
                 msgC = "C" + str(pump) + ";"
                 self.serial.write(msgC.encode())
             elif text == "Carpet OK":
+                pump = self.getPump(self.ing_dict)
                 self.gif_conveyor.stop()
                 self.gif_glass.start()
                 self.preparing.setText("Pumping at position " + str(pump))
@@ -98,6 +99,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.gif_glass.stop()
                 self.gif_conveyor.start()
                 if len(self.ing_dict) != 0:
+                    pump = self.getPump(self.ing_dict)
                     self.preparing.setText("Moving carpet to position " + str(pump))
                     msgC = "C" + str(pump) + ";"
                     self.serial.write(msgC.encode())
