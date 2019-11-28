@@ -1,16 +1,15 @@
 #!/usr/bin/env python3
 
-from PyQt5 import QtCore, QtTest, QtGui
+from PyQt5 import QtCore, QtTest, QtGui, QtSerialPort
 from ui_main import Ui_MainWindow
 from password import PasswordDialog
 from drink import DrinkDialog
 from PyQt5.QtWidgets import QMainWindow, QApplication
-from PyQt5.QtCore import QSize
+from PyQt5.QtCore import QSize, QIODevice
 import cocktails
 import messages
 import sys
 import random
-import serial
 
 
 if hasattr(QtCore.Qt, 'AA_EnableHighDpiScaling'):
@@ -28,10 +27,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         """Init."""
         QMainWindow.__init__(self)
         Ui_MainWindow.__init__(self)
-        try:
-            self.serial = serial.Serial(port='/dev/ttyACM0')
-        except serial.SerialException:
-            print("Initializing without Serial.")
+        self.serial = QtSerialPort.QSerialPort('/dev/ttyACM0')
+        self.serial.open(QIODevice.OpenModeFlag.ReadWrite)
         self.password_dialog = PasswordDialog(self)
         self.drink_dialog = DrinkDialog(self)
         self.setupUi(self)
@@ -187,7 +184,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.gif_conveyor.stop()
 
     def loading(self, button):
-        """Progress bar function."""
         self.tabWidget.setCurrentIndex(1)
         # self.__step = 0
         # self.timer = QtCore.QBasicTimer()
