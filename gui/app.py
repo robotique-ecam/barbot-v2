@@ -63,10 +63,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.picture6.clicked.connect(lambda: self.open_drink(self.picture6))
         self.menuButton.clicked.connect(lambda: self.tabWidget.setCurrentIndex(0))
         self.new_drink.clicked.connect(lambda: self.tabWidget.setCurrentIndex(0))
-        self.carpet_left.pressed.connect(self.drink_dialog.carpet_left_start)
-        self.carpet_left.released.connect(self.drink_dialog.carpet_stop)
-        self.carpet_right.pressed.connect(self.drink_dialog.carpet_right_start)
-        self.carpet_right.released.connect(self.drink_dialog.carpet_stop)
+        self.carpet_left.pressed.connect(self.carpet_left_start)
+        self.carpet_left.released.connect(self.carpet_stop)
+        self.carpet_right.pressed.connect(self.carpet_right_start)
+        self.carpet_right.released.connect(self.carpet_stop)
 
     def create_ingredients(self):
         if self.night_mode:
@@ -220,6 +220,27 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.prev_step = self.__step % (100 / self.num_ingredients)"""
         self.__step += 1
         self.progress.setValue(self.__step)
+
+    def carpet_left_start(self):
+        msg = "RC;"
+        try:
+            self.serial.write(msg.encode())
+        except AttributeError:
+            print("No serial. Sending: " + msg)
+
+    def carpet_right_start(self):
+        msg = "FC;"
+        try:
+            self.serial.write(msg.encode())
+        except AttributeError:
+            print("No serial. Sending: " + msg)
+
+    def carpet_stop(self):
+        msg = "S;"
+        try:
+            self.serial.write(msg.encode())
+        except AttributeError:
+            print("No serial. Sending: " + msg)
 
 
 if __name__ == "__main__":

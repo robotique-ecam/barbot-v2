@@ -61,27 +61,6 @@ class DrinkDialog(QDialog, Ui_Dialog):
         except AttributeError:
             print("No serial. Sending: " + msg)
 
-    def carpet_left_start(self):
-        msg = "RC;"
-        try:
-            self.serial.write(msg.encode())
-        except AttributeError:
-            print("No serial. Sending: " + msg)
-
-    def carpet_right_start(self):
-        msg = "FC;"
-        try:
-            self.serial.write(msg.encode())
-        except AttributeError:
-            print("No serial. Sending: " + msg)
-
-    def carpet_stop(self):
-        msg = "S;"
-        try:
-            self.serial.write(msg.encode())
-        except AttributeError:
-            print("No serial. Sending: " + msg)
-
     def number_button(self, name):
         pump = 0
         if name == self.parent().name1:

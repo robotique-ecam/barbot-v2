@@ -30,10 +30,10 @@ int dis, dir, pas;
 
 #define DirCarpet 50
 #define PasCarpet 51
-#define DisableCarpet 7
+#define DisableCarpet 2
 
-#define PompeDis 2
-#define Distrib 3
+#define PompeDis 3
+#define Distrib 4
 
 //AccelStepper stepper1 = AccelStepper(motorInterfaceType,PasCarpet,DirCarpet);
 
