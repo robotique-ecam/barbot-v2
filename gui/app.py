@@ -37,7 +37,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.name_clicked = self.name1
         self.prev_step = 0
         self.available_ingredients = []
-        self.available_cocktails = ["""["Eau", {"Eau": 200}, ""], ["Vodka-Redbull", {"Vodka": 200, "Redbull": 200}, ""]"""]
+        self.available_cocktails = []
         self.cocktails = []
         self.ingredients = []
         self.night_mode = False

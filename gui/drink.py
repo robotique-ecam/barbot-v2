@@ -27,6 +27,7 @@ class DrinkDialog(QDialog, Ui_Dialog):
         self.parent().available_ingredients = [self.parent().name1.text(), self.parent().name2.text(), self.parent().name3.text(), self.parent().name4.text(), self.parent().name5.text(), self.parent().name6.text()]
 
         """Updating list of available cocktails from the available ingredients"""
+        self.parent().available_cocktails = []
         for cocktail in self.parent().cocktails:
             n = 0
             for ingredient in cocktail[1]:
@@ -35,8 +36,6 @@ class DrinkDialog(QDialog, Ui_Dialog):
             if n == len(cocktail[1]):
                 if cocktail not in self.parent().available_cocktails:
                     self.parent().available_cocktails.append(cocktail)
-            elif cocktail in self.parent().available_cocktails:
-                self.parent().available_cocktails.remove(cocktail)
         self.parent().create_drink_list()
         self.hide()
 
