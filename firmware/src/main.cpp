@@ -79,6 +79,7 @@ void loop() {
 
   if (message[0]=='G') {
     gobelet();
+    Serial.println("OK");
   }
 
   message[0] = 0;

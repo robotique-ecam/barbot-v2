@@ -39,7 +39,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.name_clicked = self.name1
         self.prev_step = 0
         self.available_ingredients = []
-        self.available_cocktails = [["Eau", {"Eau": 200}, ""], ["Vodka-Redbull", {"Vodka": 200, "Redbull": 200}, ""]]
+        self.available_cocktails = []
         self.cocktails = []
         self.ingredients = []
         self.night_mode = False
@@ -206,7 +206,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.timer.stop()
             self.tabWidget.setCurrentIndex(2)
             return
-        elif self.prev_step >= self.__step % (100 / self.num_ingredients) and self.__step != 0:
+        """elif self.prev_step >= self.__step % (100 / self.num_ingredients) and self.__step != 0:
             self.timer.stop()
             try:
                 receive = ""
@@ -217,7 +217,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 QtTest.QTest.qWait(500)
             self.timer.start(10, self)
 
-        self.prev_step = self.__step % (100 / self.num_ingredients)
+        self.prev_step = self.__step % (100 / self.num_ingredients)"""
         self.__step += 1
         self.progress.setValue(self.__step)
 
