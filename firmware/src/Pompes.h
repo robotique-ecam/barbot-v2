@@ -1,41 +1,38 @@
 #include <Arduino.h>
-#include <AccelStepper.h>
 #include <String.h>
 
 int dis, dir, pas;
 
-#define DirPompe1 30
-#define PasPompe1 31
+#define DirPompe1 22
+#define PasPompe1 23
 #define DisablePompe1 8
 
-#define DirPompe2 32
-#define PasPompe2 33
+#define DirPompe2 26
+#define PasPompe2 27
 #define DisablePompe2 9
 
-#define DirPompe3 34
-#define PasPompe3 35
+#define DirPompe3 32
+#define PasPompe3 33
 #define DisablePompe3 10
 
-#define DirPompe4 36
-#define PasPompe4 37
+#define DirPompe4 34
+#define PasPompe4 35
 #define DisablePompe4 11
 
 #define DirPompe5 38
 #define PasPompe5 39
 #define DisablePompe5 12
 
-#define DirPompe6 48
-#define PasPompe6 49
+#define DirPompe6 44
+#define PasPompe6 45
 #define DisablePompe6 13
 
-#define DirCarpet 50
-#define PasCarpet 51
+#define DirCarpet 46
+#define PasCarpet 47
 #define DisableCarpet 2
 
-#define PompeDis 3
-#define Distrib 4
-
-//AccelStepper stepper1 = AccelStepper(motorInterfaceType,PasCarpet,DirCarpet);
+#define EnableGob 3
+#define DirGob 4
 
 void getPump(char num, int *dis, int *dir, int *pas) {
   switch(num) {
@@ -107,20 +104,19 @@ void Pompe(char* message) {
   ml = atoi(message + 3);
   char n = message[1];
   long step=ml*10;
-  //Serial.println("Enabling Pump " + message[1] + " for " + step + "ml...");
   for (int i=0;i<step;i++) {
     ForceP(n);
   }
 }
 
 void gobelet() {
-  delay(1500);
-  digitalWrite(PompeDis, HIGH);
-  digitalWrite(Distrib, LOW);
+  digitalWrite(EnableGob, HIGH);
+  digitalWrite(DirGob, LOW);
   delay(3000);
-  digitalWrite(Distrib, HIGH);
+  digitalWrite(DirGob, HIGH);
   delay(1000);
-  digitalWrite(PompeDis, LOW);
+  digitalWrite(EnableGob, LOW);
+  delay(1500);
 }
 
 int currentPos = 0;
@@ -183,20 +179,3 @@ void carpet(char num) {
     currentPos = 2;
   }
 }
-
-/*
-void Carpet(String message) {
-  int step=0;
-  step=message.substring(3).toInt();
-
-  stepper1.setMaxSpeed(6000);
-  stepper1.setAcceleration(12000);
-  stepper1.moveTo(step);
-
-  for (int i=0;i<step;i++) {
-    if (stepper1.distanceToGo() == 0)
-      stepper1.moveTo(-stepper1.currentPosition());
-    stepper1.run();
-  }
-}
-*/

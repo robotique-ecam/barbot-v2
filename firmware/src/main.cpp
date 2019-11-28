@@ -1,11 +1,10 @@
-#include <AccelStepper.h>
 #include "Pompes.h"
 #include <String.h>
 
 char message[10];
 void readSerial() {
   if(Serial.available()) {
-    memset(message, 0, sizeof(message)); // Clear buffer
+    memset(message, 0, sizeof(message));
     Serial.readBytesUntil(';', message, 10);
   }
 }
@@ -23,8 +22,8 @@ void setup() {
   pinMode(PasPompe5, OUTPUT);
   pinMode(DirPompe6, OUTPUT);
   pinMode(PasPompe6, OUTPUT);
-  pinMode(PompeDis, OUTPUT);
-  pinMode(Distrib, OUTPUT);
+  pinMode(EnableGob, OUTPUT);
+  pinMode(DirGob, OUTPUT);
   pinMode(DisablePompe1, OUTPUT);
   pinMode(DisablePompe2, OUTPUT);
   pinMode(DisablePompe3, OUTPUT);
@@ -39,8 +38,8 @@ void setup() {
   digitalWrite(DisablePompe5, HIGH);
   digitalWrite(DisablePompe6, HIGH);
   digitalWrite(DisableCarpet, HIGH);
-  digitalWrite(PompeDis,LOW);
-  digitalWrite(Distrib,HIGH);
+  digitalWrite(EnableGob,LOW);
+  digitalWrite(DirGob,HIGH);
 
   Serial.begin(9600);
 }
@@ -64,12 +63,15 @@ void loop() {
   }
 
   if (message[0]=='P') {
-    carpet(message[1]);
-    disablePump('C');
-    Serial.println("OK");
     Pompe(message);
     disablePump(message[1]);
     Serial.println("OK");
+  }
+
+  if (message[0]=='C') {
+      carpet(message[1]);
+      disablePump('C');
+      Serial.println("OK");
   }
 
   if (message[0]=='E') {

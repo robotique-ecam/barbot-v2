@@ -1,6 +1,8 @@
 <RCC>
   <qresource prefix="Logo">
+    <file>conveyor.gif</file>
     <file>arrow_left.png</file>
+    <file>glass.gif</file>
     <file>arrow_right.png</file>
     <file>test.png</file>
     <file>backgroundMenu.png</file>

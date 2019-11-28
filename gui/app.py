@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 
-from PyQt5 import QtCore, QtTest
+from PyQt5 import QtCore, QtTest, QtGui
 from ui_main import Ui_MainWindow
 from password import PasswordDialog
 from drink import DrinkDialog
 from PyQt5.QtWidgets import QMainWindow, QApplication
+from PyQt5.QtCore import QSize
 import cocktails
 import messages
 import sys
@@ -30,7 +31,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         try:
             self.serial = serial.Serial(port='/dev/ttyACM0')
         except serial.SerialException:
-            print("Serial not found")
+            print("Initializing without Serial.")
         self.password_dialog = PasswordDialog(self)
         self.drink_dialog = DrinkDialog(self)
         self.setupUi(self)
@@ -39,12 +40,22 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.name_clicked = self.name1
         self.prev_step = 0
         self.available_ingredients = []
-        self.available_cocktails = []
+        self.available_cocktails = [["Eau", {"Eau": 200}, ""], ["Vodka-Redbull", {"Vodka": 200, "Redbull": 200}, ""]]
         self.cocktails = []
         self.ingredients = []
         self.night_mode = False
         self.create_ingredients()
         self.create_drink_list()
+        self.gif_conveyor = QtGui.QMovie(":/Logo/conveyor.gif")
+        self.gif_conveyor.setScaledSize(QSize(512, 100))
+        self.conveyor.setMovie(self.gif_conveyor)
+        self.gif_conveyor.start()
+        self.gif_conveyor.stop()
+        self.gif_glass = QtGui.QMovie(":/Logo/glass.gif")
+        self.gif_glass.setScaledSize(QSize(100, 125))
+        self.glass.setMovie(self.gif_glass)
+        self.gif_glass.start()
+        self.gif_glass.stop()
         self.settings.clicked.connect(self.open_password)
         self.drink1.clicked.connect(lambda: self.loading(self.drink1))
         self.drink2.clicked.connect(lambda: self.loading(self.drink2))
@@ -118,14 +129,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if drink[0] == button.text():
                 ing_dict = drink[1]
                 break
-        self.num_ingredients = 2*len(ing_dict) + 1
+        # self.num_ingredients = 2*len(ing_dict) + 1
+        self.preparing.setText("Dropping a cup...")
         try:
-            self.serial.write("G;".encode())
+            self.serial.write("Gobelet;".encode())
             receive = ""
             while receive != "OK":
                 receive = self.serial.read_until(b'\r\n').decode('ascii').strip('\r\n')
         except AttributeError:
-            print("No serial. Sending: G;")
+            print("No serial. Sending: Gobelet;")
+            QtTest.QTest.qWait(3000)
         for key, value in ing_dict.items():
             pump = 0
             if key == self.name1.text():
@@ -140,27 +153,48 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 pump = 5
             elif key == self.name6.text():
                 pump = 6
-            msg = "P" + str(pump) + "-" + str(value) + ";"
+            self.gif_conveyor.start()
+            self.preparing.setText("Moving carpet to position " + str(pump))
+            msgC = "C" + str(pump) + ";"
             try:
-                self.serial.write(msg.encode())
+                self.serial.write(msgC.encode())
                 receive = ""
                 while receive != "OK":
                     receive = self.serial.read_until(b'\r\n').decode('ascii').strip('\r\n')
             except AttributeError:
-                print("No serial. Sending: " + msg)
+                print("No serial. Sending: " + msgC)
+                QtTest.QTest.qWait(3000)
+            self.gif_conveyor.stop()
+            self.gif_glass.start()
+            self.preparing.setText("Pumping at position " + str(pump))
+            msgP = "P" + str(pump) + "-" + str(value) + ";"
+            try:
+                self.serial.write(msgP.encode())
+                receive = ""
+                while receive != "OK":
+                    receive = self.serial.read_until(b'\r\n').decode('ascii').strip('\r\n')
+            except AttributeError:
+                print("No serial. Sending: " + msgP)
+                QtTest.QTest.qWait(3000)
+            self.gif_glass.stop()
+        self.gif_conveyor.start()
+        self.preparing.setText("Moving carpet to the end")
         try:
             self.serial.write("End;".encode())
         except AttributeError:
             print("No serial. Sending: End;")
+            QtTest.QTest.qWait(3000)
+        self.gif_conveyor.stop()
 
     def loading(self, button):
         """Progress bar function."""
         self.tabWidget.setCurrentIndex(1)
-        self.__step = 0
-        self.timer = QtCore.QBasicTimer()
-        self.timer.start(10, self)
+        # self.__step = 0
+        # self.timer = QtCore.QBasicTimer()
+        # self.timer.start(10, self)
         random.shuffle(messages.messages)
         self.send_ingredients(button)
+        self.tabWidget.setCurrentIndex(2)
         """for i in range(0, 100):
             if not self.timer.isActive():
                 break
@@ -214,7 +248,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     receive = self.serial.read_until(b'\r\n').decode('ascii').strip('\r\n')
             except AttributeError:
                 print("No serial. Waiting 500ms ({0}%)".format(self.__step))
-                QtTest.QTest.qWait(500)
+                QtTest.QTest.qWait(1000)
             self.timer.start(10, self)
 
         self.prev_step = self.__step % (100 / self.num_ingredients)"""
