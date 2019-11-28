@@ -79,6 +79,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def receive(self):
         while self.serial.canReadLine():
             text = self.serial.readLine().data().decode('ascii').strip('\r\n')
+            print(text)
             pump = self.getPump(self.ing_dict)
             if text == "Gobelet OK":
                 # self.gif_gobelet.stop()
