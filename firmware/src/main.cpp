@@ -65,23 +65,24 @@ void loop() {
   if (message[0]=='P') {
     Pompe(message);
     disablePump(message[1]);
-    Serial.println("OK");
+    Serial.println("Pump OK");
   }
 
   if (message[0]=='C') {
       carpet(message[1]);
       disablePump('C');
-      Serial.println("OK");
+      Serial.println("Carpet OK");
   }
 
   if (message[0]=='E') {
     carpet(message[1]);
     disablePump('C');
+    Serial.println("End OK");
   }
 
   if (message[0]=='G') {
     gobelet();
-    Serial.println("OK");
+    Serial.println("Gobelet OK");
   }
 
   message[0] = 0;

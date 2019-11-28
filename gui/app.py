@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from PyQt5 import QtCore, QtTest, QtGui, QtSerialPort
+from PyQt5 import QtCore, QtGui, QtSerialPort  # , QtTest
 from ui_main import Ui_MainWindow
 from password import PasswordDialog
 from drink import DrinkDialog
@@ -27,7 +27,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         """Init."""
         QMainWindow.__init__(self)
         Ui_MainWindow.__init__(self)
-        self.serial = QtSerialPort.QSerialPort('/dev/ttyACM0')
+        self.serial = QtSerialPort.QSerialPort('/dev/ttyACM0', readyRead=self.receive())
         self.serial.open(QIODevice.OpenModeFlag.ReadWrite)
         self.password_dialog = PasswordDialog(self)
         self.drink_dialog = DrinkDialog(self)
@@ -76,6 +76,53 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.carpet_right.pressed.connect(self.carpet_right_start)
         self.carpet_right.released.connect(self.carpet_stop)
 
+    def receive(self):
+        while self.serial.canReadLine():
+            text = self.serial.readLine().data().decode('ascii').strip('\r\n')
+            pump = self.getPump(self.ing_dict)
+            if text == "Gobelet OK":
+                # self.gif_gobelet.stop()
+                self.gif_conveyor.start()
+                self.preparing.setText("Moving carpet to position " + str(pump))
+                msgC = "C" + str(pump) + ";"
+                self.serial.write(msgC.encode())
+            elif text == "Carpet OK":
+                self.gif_conveyor.stop()
+                self.gif_glass.start()
+                self.preparing.setText("Pumping at position " + str(pump))
+                msgP = "P" + str(pump) + "-" + str(list(self.ing_dict.values())[0]) + ";"
+                self.serial.write(msgP.encode())
+                self.ing_dict.pop(list(self.ing_dict.keys())[0])
+            elif text == "Pump OK":
+                self.gif_glass.stop()
+                self.gif_conveyor.start()
+                if len(self.ing_dict) != 0:
+                    self.preparing.setText("Moving carpet to position " + str(pump))
+                    msgC = "C" + str(pump) + ";"
+                    self.serial.write(msgC.encode())
+                else:
+                    self.preparing.setText("Moving carpet to the end")
+                    self.serial.write("End;".encode())
+            elif text == "End OK":
+                self.gif_conveyor.stop()
+                self.tabWidget.setCurrentIndex(2)
+
+    def getPump(self, dict):
+        key = list(dict.keys())[0]
+        if key == self.name1.text():
+            pump = 1
+        elif key == self.name2.text():
+            pump = 2
+        elif key == self.name3.text():
+            pump = 3
+        elif key == self.name4.text():
+            pump = 4
+        elif key == self.name5.text():
+            pump = 5
+        elif key == self.name6.text():
+            pump = 6
+        return pump
+
     def create_ingredients(self):
         if self.night_mode:
             self.cocktails = cocktails.softs + cocktails.alcohols
@@ -120,77 +167,23 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             # drink.setIcon(icon)
             i += 1
 
-    def send_ingredients(self, button):
-        ing_dict = {}
+    def create_ing_dict(self, button):
+        self.ing_dict = {}
         for drink in self.available_cocktails:
             if drink[0] == button.text():
-                ing_dict = drink[1]
+                self.ing_dict = drink[1]
                 break
         # self.num_ingredients = 2*len(ing_dict) + 1
-        self.preparing.setText("Dropping a cup...")
-        try:
-            self.serial.write("Gobelet;".encode())
-            receive = ""
-            while receive != "OK":
-                receive = self.serial.read_until(b'\r\n').decode('ascii').strip('\r\n')
-        except AttributeError:
-            print("No serial. Sending: Gobelet;")
-            QtTest.QTest.qWait(3000)
-        for key, value in ing_dict.items():
-            pump = 0
-            if key == self.name1.text():
-                pump = 1
-            elif key == self.name2.text():
-                pump = 2
-            elif key == self.name3.text():
-                pump = 3
-            elif key == self.name4.text():
-                pump = 4
-            elif key == self.name5.text():
-                pump = 5
-            elif key == self.name6.text():
-                pump = 6
-            self.gif_conveyor.start()
-            self.preparing.setText("Moving carpet to position " + str(pump))
-            msgC = "C" + str(pump) + ";"
-            try:
-                self.serial.write(msgC.encode())
-                receive = ""
-                while receive != "OK":
-                    receive = self.serial.read_until(b'\r\n').decode('ascii').strip('\r\n')
-            except AttributeError:
-                print("No serial. Sending: " + msgC)
-                QtTest.QTest.qWait(3000)
-            self.gif_conveyor.stop()
-            self.gif_glass.start()
-            self.preparing.setText("Pumping at position " + str(pump))
-            msgP = "P" + str(pump) + "-" + str(value) + ";"
-            try:
-                self.serial.write(msgP.encode())
-                receive = ""
-                while receive != "OK":
-                    receive = self.serial.read_until(b'\r\n').decode('ascii').strip('\r\n')
-            except AttributeError:
-                print("No serial. Sending: " + msgP)
-                QtTest.QTest.qWait(3000)
-            self.gif_glass.stop()
-        self.gif_conveyor.start()
-        self.preparing.setText("Moving carpet to the end")
-        try:
-            self.serial.write("End;".encode())
-        except AttributeError:
-            print("No serial. Sending: End;")
-            QtTest.QTest.qWait(3000)
-        self.gif_conveyor.stop()
 
     def loading(self, button):
+        self.create_ing_dict(button)
         self.tabWidget.setCurrentIndex(1)
+        self.preparing.setText("Dropping a cup...")
+        self.serial.write("Gobelet;".encode())
         # self.__step = 0
         # self.timer = QtCore.QBasicTimer()
         # self.timer.start(10, self)
         random.shuffle(messages.messages)
-        self.send_ingredients(button)
-        self.tabWidget.setCurrentIndex(2)
         """for i in range(0, 100):
             if not self.timer.isActive():
                 break
