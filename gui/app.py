@@ -8,6 +8,7 @@ from PyQt5.QtWidgets import QMainWindow, QApplication
 from PyQt5.QtCore import QSize, QIODevice
 import cocktails
 # import messages
+import copy
 import sys
 # import random
 
@@ -181,7 +182,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.ing_dict = {}
         for drink in self.available_cocktails:
             if drink[0] == button.text():
-                self.ing_dict = drink[1]
+                self.ing_dict = copy.copy(drink[1])
                 break
         # self.num_ingredients = 2*len(ing_dict) + 1
 
