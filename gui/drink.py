@@ -34,31 +34,29 @@ class DrinkDialog(QDialog, Ui_Dialog):
                 if ingredient in self.parent().available_ingredients:
                     n += 1
             if n == len(cocktail[1]):
-                if cocktail not in self.parent().available_cocktails:
-                    self.parent().available_cocktails.append(cocktail)
+                self.parent().available_cocktails.append(cocktail)
         self.parent().create_drink_list()
         self.hide()
 
     def pump_start(self):
         msg = "F" + str(self.number_button(self.parent().name_clicked)) + ";"
-        try:
+        if not self.parent().serial.isOpen():
+            print("No Serial. Sending: " + msg)
+        else:
             self.parent().serial.write(msg.encode())
-        except AttributeError:
-            print("No serial. Sending: " + msg)
 
     def pump_stop(self):
-        msg = "S;"
-        try:
-            self.parent().serial.write(msg.encode())
-        except AttributeError:
-            print("No serial. Sending: " + msg)
+        if not self.parent().serial.isOpen():
+            print("No Serial. Sending: S;")
+        else:
+            self.parent().serial.write("S;".encode())
 
     def purge_start(self):
         msg = "R" + str(self.number_button(self.parent().name_clicked)) + ";"
-        try:
+        if not self.parent().serial.isOpen():
+            print("No Serial. Sending: " + msg)
+        else:
             self.parent().serial.write(msg.encode())
-        except AttributeError:
-            print("No serial. Sending: " + msg)
 
     def number_button(self, name):
         pump = 0

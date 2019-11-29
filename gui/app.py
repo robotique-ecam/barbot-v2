@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
 
-from PyQt5 import QtCore, QtGui, QtSerialPort  # , QtTest
+from PyQt5 import QtCore, QtGui, QtSerialPort, QtTest
 from ui_main import Ui_MainWindow
 from password import PasswordDialog
 from drink import DrinkDialog
 from PyQt5.QtWidgets import QMainWindow, QApplication
 from PyQt5.QtCore import QSize, QIODevice
 import cocktails
-import messages
+# import messages
 import sys
-import random
+# import random
 
 
 if hasattr(QtCore.Qt, 'AA_EnableHighDpiScaling'):
@@ -29,6 +29,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         Ui_MainWindow.__init__(self)
         self.serial = QtSerialPort.QSerialPort('/dev/ttyACM0', readyRead=self.receive)
         self.serial.open(QIODevice.OpenModeFlag.ReadWrite)
+        if not self.serial.isOpen():
+            print("Initializing without Serial.")
         self.password_dialog = PasswordDialog(self)
         self.drink_dialog = DrinkDialog(self)
         self.setupUi(self)
@@ -77,6 +79,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.carpet_right.released.connect(self.carpet_stop)
 
     def receive(self):
+        """Called when Serial receives a new message."""
         while self.serial.canReadLine():
             text = self.serial.readLine().data().decode('ascii').strip('\r\n')
             print(text)
@@ -111,6 +114,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.tabWidget.setCurrentIndex(2)
 
     def getPump(self, dict):
+        """"Returns the number of the pump needed."""
         key = list(dict.keys())[0]
         if key == self.name1.text():
             pump = 1
@@ -127,6 +131,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         return pump
 
     def create_ingredients(self):
+        """Creates the list of ingredients allowed."""
         if self.night_mode:
             self.cocktails = cocktails.softs + cocktails.alcohols
         else:
@@ -139,6 +144,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.ingredients.append(ingredient)
 
     def create_drink_list(self):
+        """Creates the list of drinks on the main menu."""
         drink_list = [self.drink1, self.drink2, self.drink3, self.drink4, self.drink5, self.drink6, self.drink7, self.drink8, self.drink9]
         for drink in drink_list:
             drink.raise_()
@@ -171,6 +177,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             i += 1
 
     def create_ing_dict(self, button):
+        """Creates the dictionary of ingredients needed for the needed cocktail."""
         self.ing_dict = {}
         for drink in self.available_cocktails:
             if drink[0] == button.text():
@@ -179,15 +186,21 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # self.num_ingredients = 2*len(ing_dict) + 1
 
     def loading(self, button):
+        """"Function called when pressing on one of the available cocktails."""
         self.create_ing_dict(button)
         self.tabWidget.setCurrentIndex(1)
         self.preparing.setText("Dropping a cup...")
-        self.serial.write("Gobelet;".encode())
-        # self.__step = 0
-        # self.timer = QtCore.QBasicTimer()
-        # self.timer.start(10, self)
+        # self.gif_gobelet.start()
+        if not self.serial.isOpen():
+            print("No Serial. Sending: Gobelet;")
+            self.manual_function()
+        else:
+            self.serial.write("Gobelet;".encode())
+        """self.__step = 0
+        self.timer = QtCore.QBasicTimer()
+        self.timer.start(10, self)
         random.shuffle(messages.messages)
-        """for i in range(0, 100):
+        for i in range(0, 100):
             if not self.timer.isActive():
                 break
             for j in range(0, 5):
@@ -201,10 +214,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 QtTest.QTest.qWait(500)"""
 
     def open_password(self):
+        """Open password dialog."""
         self.password_dialog.setModal(True)
         self.password_dialog.show()
 
     def open_drink(self, button):
+        """Open drink dialog."""
         self.drink_dialog.list.clear()
         self.drink_dialog.list.insertItems(1, [' '] + self.ingredients)
         self.drink_dialog.list.setCurrentText(self.name_clicked.text())
@@ -226,13 +241,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.drink_dialog.setModal(True)
         self.drink_dialog.show()
 
-    def timerEvent(self, e):
-        """Increases step everytime it is called by timer."""
+    """def timerEvent(self, e):
+        Increases step everytime it is called by timer.
         if self.__step == 100:
             self.timer.stop()
             self.tabWidget.setCurrentIndex(2)
             return
-        """elif self.prev_step >= self.__step % (100 / self.num_ingredients) and self.__step != 0:
+        elif self.prev_step >= self.__step % (100 / self.num_ingredients) and self.__step != 0:
             self.timer.stop()
             try:
                 receive = ""
@@ -243,30 +258,62 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 QtTest.QTest.qWait(1000)
             self.timer.start(10, self)
 
-        self.prev_step = self.__step % (100 / self.num_ingredients)"""
+        self.prev_step = self.__step % (100 / self.num_ingredients)
         self.__step += 1
-        self.progress.setValue(self.__step)
+        self.progress.setValue(self.__step)"""
 
     def carpet_left_start(self):
-        msg = "RC;"
-        try:
-            self.serial.write(msg.encode())
-        except AttributeError:
-            print("No serial. Sending: " + msg)
+        if not self.serial.isOpen():
+            print("No Serial. Sending: RC;")
+        else:
+            self.serial.write("RC;".encode())
 
     def carpet_right_start(self):
-        msg = "FC;"
-        try:
-            self.serial.write(msg.encode())
-        except AttributeError:
-            print("No serial. Sending: " + msg)
+        if not self.serial.isOpen():
+            print("No Serial. Sending: FC;")
+        else:
+            self.serial.write("FC;".encode())
 
     def carpet_stop(self):
-        msg = "S;"
-        try:
-            self.serial.write(msg.encode())
-        except AttributeError:
-            print("No serial. Sending: " + msg)
+        if not self.serial.isOpen():
+            print("No Serial. Sending: S;")
+        else:
+            self.serial.write("S;".encode())
+
+    def manual_function(self):
+        """Used only when no serial is detected, function for testing purposes."""
+        QtTest.QTest.qWait(3000)
+        # self.gif_gobelet.stop()
+        for key, value in self.ing_dict.items():
+            pump = 0
+            if key == self.name1.text():
+                pump = 1
+            elif key == self.name2.text():
+                pump = 2
+            elif key == self.name3.text():
+                pump = 3
+            elif key == self.name4.text():
+                pump = 4
+            elif key == self.name5.text():
+                pump = 5
+            elif key == self.name6.text():
+                pump = 6
+            self.gif_conveyor.start()
+            self.preparing.setText("Moving carpet to position " + str(pump))
+            print("No serial. Sending: C" + str(pump) + ";")
+            QtTest.QTest.qWait(3000)
+            self.gif_conveyor.stop()
+            self.gif_glass.start()
+            self.preparing.setText("Pumping at position " + str(pump))
+            print("No serial. Sending: P" + str(pump) + "-" + str(value) + ";")
+            QtTest.QTest.qWait(3000)
+            self.gif_glass.stop()
+        self.gif_conveyor.start()
+        self.preparing.setText("Moving carpet to the end")
+        print("No serial. Sending: End;")
+        QtTest.QTest.qWait(3000)
+        self.gif_conveyor.stop()
+        self.tabWidget.setCurrentIndex(2)
 
 
 if __name__ == "__main__":
