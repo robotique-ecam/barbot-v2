@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from PyQt5 import QtCore, QtGui, QtSerialPort, QtTest
+from PyQt5 import QtCore, QtGui, QtSerialPort, QtTest, QtWidgets
 from ui_main import Ui_MainWindow
 from password import PasswordDialog
 from drink import DrinkDialog
@@ -35,6 +35,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.password_dialog = PasswordDialog(self)
         self.drink_dialog = DrinkDialog(self)
         self.setupUi(self)
+        self.bubble_animation()
         self.tabWidget.setCurrentIndex(0)
         self.button_clicked = self.picture1
         self.name_clicked = self.name1
@@ -78,6 +79,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.carpet_left.released.connect(self.carpet_stop)
         self.carpet_right.pressed.connect(self.carpet_right_start)
         self.carpet_right.released.connect(self.carpet_stop)
+        self.gobelet.clicked.connect(self.gobelet_push)
 
     def receive(self):
         """Called when Serial receives a new message."""
@@ -172,6 +174,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         i = 0
         for drink in drinks_enabled:
             drink.setText(self.available_cocktails[i][0])
+            drink.setFont(QtGui.QFont("Verdana", self.available_cocktails[i][2]))
             # icon = QtGui.QIcon()
             # icon.addPixmap(QtGui.QPixmap(":/Logo/test.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
             # drink.setIcon(icon)
@@ -214,6 +217,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.preparing.setText(messages.messages[i % len(messages.messages)] + " ...")
                 QtTest.QTest.qWait(500)"""
 
+    def bubble_animation(self):
+        self.bubbles.setGeometry(QtCore.QRect(0, 70, 1024, 1800))
+        self.bubbles.setStyleSheet("background: transparent; background-image: url(:/Logo/bubbles.png);")
+
     def open_password(self):
         """Open password dialog."""
         self.password_dialog.setModal(True)
@@ -239,6 +246,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.name_clicked = self.name6
         self.drink_dialog.picture.setStyleSheet(self.button_clicked.styleSheet())
         self.drink_dialog.name.setText(self.name_clicked.text())
+        for drink in self.cocktails:
+            if drink[0] == self.name_clicked.text():
+                self.drink_dialog.name.setFont(QtGui.QFont("Verdana", drink[2] / 2))
         self.drink_dialog.setModal(True)
         self.drink_dialog.show()
 
@@ -280,6 +290,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             print("No Serial. Sending: S;")
         else:
             self.serial.write("S;".encode())
+
+    def gobelet_push(self):
+        if not self.serial.isOpen():
+            print("No Serial. Sending: Gobelet;")
+        else:
+            self.serial.write("Gobelet;".encode())
 
     def manual_function(self):
         """Used only when no serial is detected, function for testing purposes."""

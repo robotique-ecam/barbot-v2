@@ -61,9 +61,13 @@
    <property name="font">
     <font>
      <family>Verdana</family>
-     <weight>50</weight>
-     <bold>false</bold>
+     <pointsize>10</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
     </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border: 5px solid;</string>
    </property>
    <property name="text">
     <string/>
