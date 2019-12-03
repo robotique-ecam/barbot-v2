@@ -1364,7 +1364,7 @@ border-left: 5px solid;</string>
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>70</y>
+      <y>600</y>
       <width>1024</width>
       <height>1800</height>
      </rect>

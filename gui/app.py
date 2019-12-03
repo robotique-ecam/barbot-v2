@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 
-from PyQt5 import QtCore, QtGui, QtSerialPort, QtTest, QtWidgets
+from PyQt5 import QtCore, QtGui, QtSerialPort, QtTest
 from ui_main import Ui_MainWindow
 from password import PasswordDialog
 from drink import DrinkDialog
 from PyQt5.QtWidgets import QMainWindow, QApplication
-from PyQt5.QtCore import QSize, QIODevice
+from PyQt5.QtCore import QSize, QIODevice, QPoint
 import cocktails
 # import messages
 import copy
@@ -35,7 +35,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.password_dialog = PasswordDialog(self)
         self.drink_dialog = DrinkDialog(self)
         self.setupUi(self)
-        self.bubble_animation()
         self.tabWidget.setCurrentIndex(0)
         self.button_clicked = self.picture1
         self.name_clicked = self.name1
@@ -73,8 +72,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.picture4.clicked.connect(lambda: self.open_drink(self.picture4))
         self.picture5.clicked.connect(lambda: self.open_drink(self.picture5))
         self.picture6.clicked.connect(lambda: self.open_drink(self.picture6))
-        self.menuButton.clicked.connect(lambda: self.tabWidget.setCurrentIndex(0))
-        self.new_drink.clicked.connect(lambda: self.tabWidget.setCurrentIndex(0))
+        self.menuButton.clicked.connect(self.bubble_animation)
+        self.new_drink.clicked.connect(self.bubble_animation)
         self.carpet_left.pressed.connect(self.carpet_left_start)
         self.carpet_left.released.connect(self.carpet_stop)
         self.carpet_right.pressed.connect(self.carpet_right_start)
@@ -114,7 +113,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.serial.write("End;".encode())
             elif text == "End OK":
                 self.gif_conveyor.stop()
-                self.tabWidget.setCurrentIndex(2)
+                self.bubble_animation()
 
     def getPump(self, dict):
         """"Returns the number of the pump needed."""
@@ -192,7 +191,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def loading(self, button):
         """"Function called when pressing on one of the available cocktails."""
         self.create_ing_dict(button)
-        self.tabWidget.setCurrentIndex(1)
+        self.bubble_animation()
         self.preparing.setText("Dropping a cup...")
         # self.gif_gobelet.start()
         if not self.serial.isOpen():
@@ -218,8 +217,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 QtTest.QTest.qWait(500)"""
 
     def bubble_animation(self):
-        self.bubbles.setGeometry(QtCore.QRect(0, 70, 1024, 1800))
-        self.bubbles.setStyleSheet("background: transparent; background-image: url(:/Logo/bubbles.png);")
+        self.bubbles.setGeometry(QtCore.QRect(0, 300, 1024, 1800))
+        while self.bubbles.y() > -1200:
+            p = self.bubbles.pos()
+            p -= QPoint(0, 5)
+            self.bubbles.move(p)
+            QtTest.QTest.qWait(2)
+        self.bubbles.setGeometry(QtCore.QRect(0, 600, 1024, 1800))
+        if self.tabWidget.currentIndex() == 0:
+            self.tabWidget.setCurrentIndex(1)
+        elif self.tabWidget.currentIndex() == 1:
+            self.tabWidget.setCurrentIndex(2)
+        else:
+            self.tabWidget.setCurrentIndex(0)
 
     def open_password(self):
         """Open password dialog."""
@@ -330,7 +340,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         print("No serial. Sending: End;")
         QtTest.QTest.qWait(3000)
         self.gif_conveyor.stop()
-        self.tabWidget.setCurrentIndex(2)
+        self.bubble_animation()
 
 
 if __name__ == "__main__":
