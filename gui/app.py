@@ -303,9 +303,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def gobelet_push(self):
         if not self.serial.isOpen():
-            print("No Serial. Sending: Gobelet;")
+            print("No Serial. Sending: FG;")
         else:
-            self.serial.write("Gobelet;".encode())
+            self.serial.write("FG;".encode())
 
     def manual_function(self):
         """Used only when no serial is detected, function for testing purposes."""
