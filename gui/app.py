@@ -220,7 +220,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.bubbles.setGeometry(QtCore.QRect(0, 300, 1024, 1800))
         while self.bubbles.y() > -1200:
             p = self.bubbles.pos()
-            p -= QPoint(0, 5)
+            p -= QPoint(0, 7)
             self.bubbles.move(p)
             QtTest.QTest.qWait(2)
         self.bubbles.setGeometry(QtCore.QRect(0, 600, 1024, 1800))
@@ -254,7 +254,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.name_clicked = self.name5
         elif button == self.picture6:
             self.name_clicked = self.name6
-        self.drink_dialog.picture.setStyleSheet(self.button_clicked.styleSheet())
+        # self.drink_dialog.picture.setStyleSheet(self.button_clicked.styleSheet())
         self.drink_dialog.name.setText(self.name_clicked.text())
         for drink in self.cocktails:
             if drink[0] == self.name_clicked.text():

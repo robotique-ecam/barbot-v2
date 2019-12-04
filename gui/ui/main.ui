@@ -1371,7 +1371,8 @@ border-left: 5px solid;</string>
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: transparent;
-background-image: url(:/Logo/bubbles.png);</string>
+border-image: url(:/Logo/bubbles.png);
+</string>
     </property>
     <property name="text">
      <string/>

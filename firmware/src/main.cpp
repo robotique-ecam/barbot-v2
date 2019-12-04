@@ -47,9 +47,13 @@ void loop() {
   readSerial();
 
   if (message[0]=='F') {
-    while (message[0]!='S') {
-      readSerial();
-      ForceP(message[1]);
+    if(message[1]=='G') {
+      gobelet();
+    } else {
+      while (message[0]!='S') {
+        readSerial();
+        ForceP(message[1]);
+      }
     }
     disablePump(message[1]);
   }

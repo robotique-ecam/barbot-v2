@@ -34,16 +34,6 @@ int dis, dir, pas;
 #define EnableGob 3
 #define DirGob 4
 
-void gobelet() {
-  digitalWrite(EnableGob, HIGH);
-  digitalWrite(DirGob, LOW);
-  delay(3000);
-  digitalWrite(DirGob, HIGH);
-  delay(1000);
-  digitalWrite(EnableGob, LOW);
-  delay(1500);
-}
-
 void getPump(char num, int *dis, int *dir, int *pas) {
   switch(num) {
     case '1':
@@ -81,8 +71,6 @@ void getPump(char num, int *dis, int *dir, int *pas) {
       *dir = DirCarpet;
       *pas = PasCarpet;
       break;
-    case 'G':
-      gobelet();
   }
 }
 
@@ -109,6 +97,16 @@ void ReverseP(char num) {
 void disablePump(char num) {
   getPump(num, &dis, &dir, &pas);
   digitalWrite(dis,HIGH);
+}
+
+void gobelet() {
+  digitalWrite(EnableGob, HIGH);
+  digitalWrite(DirGob, LOW);
+  delay(3000);
+  digitalWrite(DirGob, HIGH);
+  delay(1000);
+  digitalWrite(EnableGob, LOW);
+  delay(1500);
 }
 
 void Pompe(char* message) {
