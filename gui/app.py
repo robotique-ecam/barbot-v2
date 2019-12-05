@@ -217,13 +217,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 QtTest.QTest.qWait(500)"""
 
     def bubble_animation(self):
-        self.bubbles.setGeometry(QtCore.QRect(0, 300, 1024, 1800))
+        """self.bubbles.setGeometry(QtCore.QRect(0, 300, 1024, 1800))
         while self.bubbles.y() > -1200:
             p = self.bubbles.pos()
             p -= QPoint(0, 7)
             self.bubbles.move(p)
             QtTest.QTest.qWait(2)
-        self.bubbles.setGeometry(QtCore.QRect(0, 600, 1024, 1800))
+        self.bubbles.setGeometry(QtCore.QRect(0, 600, 1024, 1800))"""
         if self.tabWidget.currentIndex() == 0:
             self.tabWidget.setCurrentIndex(1)
         elif self.tabWidget.currentIndex() == 1:
