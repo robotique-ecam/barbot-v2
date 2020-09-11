@@ -1,5 +1,5 @@
 #include "Pompes.h"
-#include <String.h>
+#include <string.h>
 
 char message[10];
 void readSerial() {

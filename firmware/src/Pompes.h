@@ -1,7 +1,9 @@
 #include <Arduino.h>
-#include <String.h>
+#include <string.h>
 
 int dis, dir, pas;
+
+#define StepSpeed 300
 
 #define DirPompe1 22
 #define PasPompe1 23
@@ -79,9 +81,9 @@ void ForceP(char num) {
   digitalWrite(dis,LOW);
   digitalWrite(dir,HIGH);
   digitalWrite(pas,HIGH);
-  delayMicroseconds(500);
+  delayMicroseconds(StepSpeed);
   digitalWrite(pas,LOW);
-  delayMicroseconds(500);
+  delayMicroseconds(StepSpeed);
 }
 
 void ReverseP(char num) {
@@ -89,9 +91,9 @@ void ReverseP(char num) {
   digitalWrite(dis,LOW);
   digitalWrite(dir,LOW);
   digitalWrite(pas,HIGH);
-  delayMicroseconds(500);
+  delayMicroseconds(StepSpeed);
   digitalWrite(pas,LOW);
-  delayMicroseconds(500);
+  delayMicroseconds(StepSpeed);
 }
 
 void disablePump(char num) {

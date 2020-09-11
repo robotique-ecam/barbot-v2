@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 
 from PyQt5 import QtTest
-from ui_password import Ui_Dialog
+from ui.py.ui_password import Ui_Password
 from PyQt5.QtWidgets import QDialog
 
 
-class PasswordDialog(QDialog, Ui_Dialog):
+class PasswordDialog(QDialog, Ui_Password):
     def __init__(self, parent=None):
         QDialog.__init__(self, parent)
-        Ui_Dialog.__init__(self)
+        Ui_Password.__init__(self)
         self.setupUi(self)
         self.b0.clicked.connect(lambda: self.writing_password(self.b0))
         self.b1.clicked.connect(lambda: self.writing_password(self.b1))
@@ -24,23 +24,14 @@ class PasswordDialog(QDialog, Ui_Dialog):
         self.erase.clicked.connect(self.erasing)
 
     def writing_password(self, button):
-        if len(self.lineEdit.text()) < 6:
+        if len(self.lineEdit.text()) < 5:
             self.lineEdit.setText(self.lineEdit.text() + button.text())
 
     def check_password(self):
         if self.lineEdit.text() == "8192":
             self.lineEdit.setText("")
             self.hide()
-            self.parent().tabWidget.setCurrentIndex(3)
-        elif self.lineEdit.text() == "4096":
-            if self.parent().night_mode:
-                self.parent().night_mode = False
-                self.parent().create_ingredients()
-            else:
-                self.parent().night_mode = True
-                self.parent().create_ingredients()
-            self.lineEdit.setText("")
-            self.hide()
+            self.parent().open_settings()
         else:
             self.lineEdit.setText("Wrong!")
             QtTest.QTest.qWait(1000)
