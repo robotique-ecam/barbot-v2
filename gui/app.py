@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+
+
 from ui.py.ui_main import Ui_Main
 from password import PasswordDialog
 from settings import SettingsDialog
